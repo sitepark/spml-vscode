@@ -1,0 +1,52 @@
+{
+    "name": "spml-vscode",
+    "description": "Language Support for SPML (SitePark Markup Language)",
+    "version": "0.0.1",
+    "contributors": [
+        "felix-becker"
+    ],
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "main": "./extension",
+    "dependencies": {
+        "vscode-languageclient": "^8.1.0"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "spml",
+                "aliases": [
+                    "SitePark Markup Language",
+                    "spml",
+                    "SPML"
+                ],
+                "extensions": [
+                    ".spml"
+                ],
+                "icon": {
+                    "light": "./resources/logo_light.png",
+                    "dark": "./resources/logo_dark.png"
+                },
+                "configuration": "./spml-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "spml",
+                "scopeName": "text.html.jsp.spml",
+                "embeddedLanguages": {
+                    "source.css": "css",
+                    "source.js": "javascript"
+                },
+                "path": "./syntaxes/spml.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "spml",
+                "path": "./snippets/spml.code-snippets"
+            }
+        ]
+    }
+}
