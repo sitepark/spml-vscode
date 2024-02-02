@@ -1,7 +1,8 @@
 // @ts-check
 const { LanguageClient } = require("vscode-languageclient/node");
 
-const MODULES_FILE = null //path to modules-file.json
+const PATH_TO_LSPML_BINARY = "/home/felix/git/lspml/target/debug/lspml" //path to lspml (spml language server) binary 
+const PATH_TO_MODULES_FILE = null //optional path to modules-file.json. See Readme at https://github.com/DrWursterich/lspml 
 const DEBUG_LOG_LEVEL = "INFO";
 
 module.exports = {
@@ -10,12 +11,15 @@ module.exports = {
         /** @type {import("vscode-languageclient/node").ServerOptions} */
         const serverOptions = {
             run: {
-                command: "lspml",
-                args: MODULES_FILE ? ["--modules-file", MODULES_FILE] : [],
+                command: PATH_TO_LSPML_BINARY,
+                args: PATH_TO_MODULES_FILE ? ["--modules-file", PATH_TO_MODULES_FILE] : [],
             },
             debug: {
-                command: "lspml",
-                args: ["--log-level", DEBUG_LOG_LEVEL, ...(MODULES_FILE ? ["--modules-file", MODULES_FILE] : [])],
+                command: PATH_TO_LSPML_BINARY,
+                args: [
+                    "--log-level", DEBUG_LOG_LEVEL,
+                    ...(PATH_TO_MODULES_FILE ? ["--modules-file", PATH_TO_MODULES_FILE] : [])
+                ],
             },
         };
 

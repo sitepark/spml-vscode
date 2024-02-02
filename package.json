@@ -48,5 +48,12 @@
                 "path": "./snippets/spml.code-snippets"
             }
         ]
+    },
+    "devDependencies": {
+        "@vscode/vsce": "^2.23.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.sitepark.com/internal/spml-vscode"
     }
 }
