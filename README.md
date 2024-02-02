@@ -15,7 +15,7 @@ Die benötigten Repos findet man im Moment hier:<br>
 https://github.com/DrWursterich/lspml<br>
 https://github.com/DrWursterich/tree-sitter-spml
 
-- Mario nach Zugang fragen und klonen. 
+- Mario nach Zugang fragen und Repos klonen. 
 - ins `lspml`-Repo navigieren
 - in der `Cargo.toml` den Pfad zum lokalen `tree-sitter-spml`-Repo anpassen
 - mit `cargo build` bauen (ggfs vorher cargo installieren)
