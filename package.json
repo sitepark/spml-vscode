@@ -28,7 +28,7 @@
                     "light": "./resources/logo_light.png",
                     "dark": "./resources/logo_dark.png"
                 },
-                "configuration": "./spml-configuration.json"
+                "configuration": "./spml.language-configuration.json"
             }
         ],
         "grammars": [
