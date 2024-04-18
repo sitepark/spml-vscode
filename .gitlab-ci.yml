@@ -19,4 +19,4 @@ build:
     paths:
       - dist/spml-vscode.vsix
     expire_in: "30 days"
-    expose_as: "spml-vscode.vsix"
+    expose_as: "vscode-extension"
