@@ -8,6 +8,8 @@
   "engines": {
     "vscode": "^1.74.0"
   },
+  "publisher": "sitepark",
+  "icon": "./resources/logo_dark.png",
   "main": "./dist/extension.js",
   "dependencies": {
     "@types/vscode": "^1.88.0",
@@ -51,7 +53,7 @@
     ]
   },
   "devDependencies": {
-    "@vscode/vsce": "^2.23.0",
+    "@vscode/vsce": "^2.25.0",
     "esbuild": "^0.20.2"
   },
   "repository": {
@@ -59,10 +61,10 @@
     "url": "https://gitlab.sitepark.com/internal/spml-vscode"
   },
   "scripts": {
-    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "vscode:prepublish": "npm run esbuild-base --minify",
     "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "esbuild": "npm run esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "esbuild": "npm run esbuild-base --sourcemap",
+    "esbuild-watch": "npm run esbuild-base --sourcemap --watch",
     "test-compile": "tsc -p ./"
   }
 }

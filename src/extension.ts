@@ -1,13 +1,13 @@
 import { ExtensionContext } from "vscode";
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
 
-const PATH_TO_LSPML_BINARY =
-  "/home/schleuse/develop/git/forks/lspml/target/debug/lspml"; //path to lspml (spml language server) binary
+
 const PATH_TO_MODULES_FILE = null; //optional path to modules-file.json. See Readme at https://github.com/DrWursterich/lspml
 const DEBUG_LOG_LEVEL = "TRACE";
 
 export function activate(context: ExtensionContext) {
-  console.log("Starting LSPML...");
+  const lspmlPath = context.asAbsolutePath("resources/lspml");
+  console.log("Starting LSPML... " + context.asAbsolutePath("resources/lspml"));
   const args = [
     "--log-level",
     DEBUG_LOG_LEVEL,
@@ -22,11 +22,11 @@ export function activate(context: ExtensionContext) {
 
   const serverOptions: ServerOptions = {
     run: {
-      command: PATH_TO_LSPML_BINARY,
+      command: lspmlPath,
       args: args,
     },
     debug: {
-      command: PATH_TO_LSPML_BINARY,
+      command: lspmlPath,
       args: args,
     },
   };
