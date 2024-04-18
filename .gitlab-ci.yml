@@ -17,6 +17,6 @@ build:
     - ./node_modules/.bin/vsce pack --out ./dist/spml-vscode.vsix
   artifacts:
     paths:
-      - dist/*.vsix
+      - dist/spml-vscode.vsix
     expire_in: "30 days"
     expose_as: "spml-vscode.vsix"
