@@ -18,3 +18,5 @@ build:
   artifacts:
     paths:
       - dist/*.vsix
+    expire_in: "30 days"
+    expose_as: "extension-vsix"
