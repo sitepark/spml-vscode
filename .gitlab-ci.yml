@@ -15,3 +15,6 @@ build:
   stage: build
   script:
     - ./node_modules/.bin/vsce pack --out ./dist
+  artifacts:
+    paths:
+      - dist/*.vsix
