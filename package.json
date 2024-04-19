@@ -18,6 +18,9 @@
     "vscode.html-language-features"
   ],
   "contributes": {
+    "html": {
+      "customData": ["./spml.html.customData.json"]
+    },
     "htmlLanguageParticipants": [
       {
         "languageId": "spml",
