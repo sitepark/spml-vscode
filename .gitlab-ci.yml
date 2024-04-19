@@ -14,9 +14,9 @@ stages:
 build:
   stage: build
   script:
-    - ./node_modules/.bin/vsce pack --out ./dist/spml-vscode.vsix
+    - ./node_modules/.bin/vsce pack --out ./spml-vscode.vsix
   artifacts:
     paths:
-      - dist/spml-vscode.vsix
+      - spml-vscode.vsix
     expire_in: "30 days"
     expose_as: "vscode-extension"
