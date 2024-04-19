@@ -80,13 +80,17 @@
     ],
     "grammars": [
       {
+        "path": "./syntaxes/spml.tmLanguage.json",
         "language": "spml",
         "scopeName": "text.html.jsp.spml",
         "embeddedLanguages": {
           "source.css": "css",
-          "source.js": "javascript"
-        },
-        "path": "./syntaxes/spml.tmLanguage.json"
+          "source.js": "javascript",
+          "source.jsp": "jsp",
+          "meta.embedded.block.javascript": "javascript",
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.jsp": "jsp"
+        }
       }
     ],
     "snippets": [
