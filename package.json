@@ -14,7 +14,16 @@
   "dependencies": {
     "vscode-languageclient": "^9.0.0"
   },
+  "extensionDependencies": [
+    "vscode.html-language-features"
+  ],
   "contributes": {
+    "htmlLanguageParticipants": [
+      {
+        "languageId": "spml",
+        "autoInsert": true
+      }
+    ],
     "languages": [
       {
         "id": "spml",
