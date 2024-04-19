@@ -37,12 +37,10 @@ export function activate(context: ExtensionContext) {
     run: {
       command: lspmlPath,
       args: args,
-      transport: TransportKind.stdio,
     },
     debug: {
       command: lspmlPath,
-      args: args,
-      transport: TransportKind.stdio,
+      args: args
     },
   };
 
