@@ -12,7 +12,6 @@
   "icon": "./resources/logo_dark.png",
   "main": "./dist/extension.js",
   "dependencies": {
-    "@types/vscode": "^1.88.0",
     "vscode-languageclient": "^9.0.0"
   },
   "contributes": {
@@ -53,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/vscode": "^1.88.0",
     "@vscode/vsce": "^2.25.0",
     "esbuild": "^0.20.2"
   },
