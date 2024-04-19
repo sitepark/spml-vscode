@@ -1,53 +1,70 @@
-import { ExtensionContext } from "vscode";
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+  TransportKind,
+} from "vscode-languageclient/node";
+import {
+  workspace,
+  commands,
+  ExtensionContext,
+  OutputChannel,
+  window,
+} from "vscode";
 
-
-const PATH_TO_MODULES_FILE = null; //optional path to modules-file.json. See Readme at https://github.com/DrWursterich/lspml
-const DEBUG_LOG_LEVEL = "TRACE";
+let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  const lspmlPath = context.asAbsolutePath("resources/lspml");
-  console.log("Starting LSPML... " + context.asAbsolutePath("resources/lspml"));
-  const args = [
-    "--log-level",
-    DEBUG_LOG_LEVEL,
-    "--log-file",
-    "/var/log/lspml.log",
-    "--modules-file",
-    "/home/schleuse/lspml-modules.json"
-  ];
-  if (PATH_TO_MODULES_FILE) {
-    args.push("--modules-file", PATH_TO_MODULES_FILE);
-  }
+  context.subscriptions.push(
+    commands.registerCommand("spml.restart", () => client.restart())
+  );
 
+  const configuration = workspace.getConfiguration();
+  const lspmlPath = context.asAbsolutePath("resources/lspml");
+
+  const args: string[] = [
+    "--log-level",
+    configuration.get<string>("spml.lsp.loglevel") ?? "INFO",
+    // DEBUG_LOG_LEVEL,
+    // "--log-file",
+    // "/var/log/lspml.log",
+    // "--modules-file",
+    // "/home/schleuse/lspml-modules.json"
+  ];
+
+  const outputChannel = window.createOutputChannel("SPML", "spml");
   const serverOptions: ServerOptions = {
     run: {
       command: lspmlPath,
       args: args,
+      transport: TransportKind.stdio,
     },
     debug: {
       command: lspmlPath,
       args: args,
+      transport: TransportKind.stdio,
     },
   };
 
   const clientOptions: LanguageClientOptions = {
     documentSelector: [{ scheme: "file", language: "spml" }],
-    progressOnInitialization: true
+    progressOnInitialization: true,
+    outputChannel: outputChannel,
   };
 
-  const client = new LanguageClient(
+  client = new LanguageClient(
     "lspml",
     "SPML Language Server",
     serverOptions,
     clientOptions
   );
+
   client.start().then(() => {
-    console.log("Started LSPML!");
-  })
+    outputChannel.appendLine("Started LSPML!");
+  });
   context.subscriptions.push(client);
 }
 
-
-export function deactivate() {
+export function deactivate(): Thenable<void> {
+  return client?.stop();
 }

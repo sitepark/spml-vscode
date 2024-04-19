@@ -33,6 +33,51 @@
         "configuration": "./spml.language-configuration.json"
       }
     ],
+    "configuration": {
+      "title": "SPML",
+      "type": "object",
+      "properties": {
+        "spml.lsp.loglevel": {
+          "description": "Log-Level von LSPML",
+          "type": "string",
+          "default": "INFO",
+          "enum": [
+            "TRACE",
+            "DEBUG",
+            "INFO",
+            "WARN"
+          ],
+          "scope": "machine"
+        },
+        "spml.lsp.moduleMapping": {
+          "scope": "machine",
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "$schema": "",
+              "properties": {
+                "module": {
+                  "type": "string",
+                  "description": "Modul-Id"
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Pfad"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "spml.restart",
+        "category": "SPML",
+        "title": "LSPML neustarten"
+      }
+    ],
     "grammars": [
       {
         "language": "spml",
