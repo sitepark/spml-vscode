@@ -47,7 +47,10 @@ export function activate(context: ExtensionContext) {
   const clientOptions: LanguageClientOptions = {
     documentSelector: [{ scheme: "file", language: "spml" }],
     progressOnInitialization: true,
-    outputChannel: outputChannel,
+    markdown: {
+      isTrusted: true,
+      supportHtml: true
+    }
   };
 
   client = new LanguageClient(
