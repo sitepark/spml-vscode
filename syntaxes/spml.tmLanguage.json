@@ -1,9 +1,9 @@
 {
-    "name": "SPML",
-    "scopeName": "text.html.jsp.spml",
-    "patterns": [
-        {
-            "include": "text.html.jsp"
-        }
-    ]
+  "name": "SPML",
+  "scopeName": "text.html.jsp.spml",
+  "patterns": [
+    {
+      "include": "text.html.jsp"
+    }
+  ]
 }

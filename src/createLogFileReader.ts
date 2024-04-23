@@ -3,18 +3,17 @@ import * as readline from "node:readline";
 import { LogOutputChannel } from "vscode";
 import { LogLine, LspmlLogLevel } from "./lspml";
 
-
 export function createLogFileReader(
   logFilePath: string,
-  outputChannel: LogOutputChannel
+  outputChannel: LogOutputChannel,
 ) {
   let lastReadPosition = 0;
 
   const logMapping: Record<LspmlLogLevel, (msg: string) => void> = {
-    "DEBUG": outputChannel.debug,
-    "INFO": outputChannel.info,
-    "TRACE": outputChannel.trace,
-    "WARN": outputChannel.warn
+    DEBUG: outputChannel.debug,
+    INFO: outputChannel.info,
+    TRACE: outputChannel.trace,
+    WARN: outputChannel.warn,
   };
 
   function displayNewLogFileContent() {

@@ -6,7 +6,9 @@ export async function getLogDir(ctx: ExtensionContext): Promise<string> {
   return path.fsPath;
 }
 
-export async function getStorageDir(ctx: ExtensionContext): Promise<string | void> {
+export async function getStorageDir(
+  ctx: ExtensionContext,
+): Promise<string | void> {
   const path = ctx.storageUri;
   if (path === undefined) {
     return;

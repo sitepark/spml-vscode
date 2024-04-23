@@ -1,14 +1,9 @@
 import { ExtensionContext, commands, window, workspace } from "vscode";
-import {
-  LanguageClient
-} from "vscode-languageclient/node";
+import { LanguageClient } from "vscode-languageclient/node";
 
 import * as fs from "node:fs";
 import { createLogFileReader } from "./createLogFileReader";
-import {
-  createLanguageClient,
-  getLogFile
-} from "./lspml";
+import { createLanguageClient, getLogFile } from "./lspml";
 
 let client: LanguageClient;
 
@@ -16,7 +11,7 @@ export async function activate(ctx: ExtensionContext) {
   const outputChannel = window.createOutputChannel("SPML", "spml");
   const restart = () => {
     console.log("RESTART");
-    outputChannel.appendLine("RESTART")
+    outputChannel.appendLine("RESTART");
     deactivate();
     for (const sub of ctx.subscriptions) {
       try {
@@ -26,7 +21,7 @@ export async function activate(ctx: ExtensionContext) {
       }
     }
     activate(ctx);
-  }
+  };
 
   const logChannel = window.createOutputChannel("LSPML", {
     log: true,
@@ -47,13 +42,15 @@ export async function activate(ctx: ExtensionContext) {
     },
   });
   ctx.subscriptions.push(
-    commands.registerCommand("spml.restart", () => restart())
+    commands.registerCommand("spml.restart", () => restart()),
   );
-  ctx.subscriptions.push(workspace.onDidChangeConfiguration((e) => {
-    if (e.affectsConfiguration('spml.lsp')) {
-      restart();
-    }
-  }))
+  ctx.subscriptions.push(
+    workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration("spml.lsp")) {
+        restart();
+      }
+    }),
+  );
 }
 
 export function deactivate(): Thenable<void> {

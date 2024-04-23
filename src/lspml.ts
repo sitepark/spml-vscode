@@ -1,7 +1,11 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { ExtensionContext, workspace } from "vscode";
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+} from "vscode-languageclient/node";
 import { getLogDir, getStorageDir } from "./util/storage";
 
 export type LspmlLogLevel = "TRACE" | "DEBUG" | "INFO" | "WARN";
@@ -13,20 +17,20 @@ export type LspmlArgs = {
 
 export interface ModuleMappingFile {
   [key: string]: {
-    path: string
-  }
+    path: string;
+  };
 }
 
 export interface LogLine {
-  level: LspmlLogLevel,
-  message: string,
-  target: string,
-  timestamp: number
+  level: LspmlLogLevel;
+  message: string;
+  target: string;
+  timestamp: number;
 }
 
 export interface ModuleMappingEntry {
-  id: string,
-  path: string
+  id: string;
+  path: string;
 }
 
 export function getLspmlPath(ctx: ExtensionContext): string {
@@ -87,7 +91,9 @@ async function getModuleMapping(ctx: ExtensionContext) {
   return moduleFile;
 }
 
-export async function createLanguageClient(ctx: ExtensionContext): Promise<LanguageClient> {
+export async function createLanguageClient(
+  ctx: ExtensionContext,
+): Promise<LanguageClient> {
   const args = await getLspmlArgs(ctx);
   const lspmlPath = getLspmlPath(ctx);
   const serverOptions: ServerOptions = {
@@ -114,6 +120,6 @@ export async function createLanguageClient(ctx: ExtensionContext): Promise<Langu
     "lspml",
     "SPML Language Server",
     serverOptions,
-    clientOptions
+    clientOptions,
   );
 }

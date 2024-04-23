@@ -3,7 +3,6 @@ image: node:lts-slim
 stages:
   - build
 
-
 build-lspml:
   stage: build
   image: rust:latest
@@ -23,12 +22,12 @@ build-lspml:
     policy: pull-push
   artifacts:
     paths:
-    - lspml/target/release/lspml
+      - lspml/target/release/lspml
     expire_in: 20 minutes
 
 build-vscode-extension:
   stage: build
-  cache:  # Cache modules in between jobs
+  cache: # Cache modules in between jobs
     key: $CI_COMMIT_REF_SLUG
     paths:
       - .npm/
