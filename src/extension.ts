@@ -1,18 +1,25 @@
 import {
+  ExtensionContext,
+  commands,
+  window,
+  workspace
+} from "vscode";
+import {
   LanguageClient,
   LanguageClientOptions,
-  ServerOptions,
-  TransportKind,
+  ServerOptions
 } from "vscode-languageclient/node";
-import {
-  workspace,
-  commands,
-  ExtensionContext,
-  OutputChannel,
-  window,
-} from "vscode";
 
 let client: LanguageClient;
+
+
+function getLspmlPath(context: ExtensionContext): string {
+  const arch = process.arch;
+  if (arch === "x64") {
+    return context.asAbsolutePath("resources/lspml_x86");
+  }
+  throw new Error(`Unsupported architecture ${arch}`);
+}
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
@@ -20,7 +27,8 @@ export function activate(context: ExtensionContext) {
   );
 
   const configuration = workspace.getConfiguration();
-  const lspmlPath = context.asAbsolutePath("resources/lspml");
+
+  const lspmlPath = getLspmlPath(context);
 
   const args: string[] = [
     "--log-level",
