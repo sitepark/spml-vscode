@@ -34,7 +34,7 @@ export async function activate(ctx: ExtensionContext) {
 
   const logFile = await getLogFile(ctx);
   ctx.subscriptions.push(client);
-  ctx.subscriptions.push(outputChannel);
+  ctx.subscriptions.push(outputChannel, logChannel);
   ctx.subscriptions.push(createLogFileReader(logFile, logChannel));
   ctx.subscriptions.push({
     dispose: () => {
