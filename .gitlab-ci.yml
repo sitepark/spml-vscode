@@ -3,12 +3,24 @@ image: node:lts-slim
 stages:
   - build
 
+
 build-lspml:
   stage: build
   image: rust:latest
+  variables:
+    CARGO_HOME: ${CI_PROJECT_DIR}/.cargo
   script:
     - git clone https://github.com/DrWursterich/lspml.git
     - cargo build --manifest-path ./lspml/Cargo.toml --release
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .cargo/bin
+      - .cargo/registry/index
+      - .cargo/registry/cache
+      - target/debug/deps
+      - target/debug/build
+    policy: pull-push
   artifacts:
     paths:
     - lspml/target/release/lspml
