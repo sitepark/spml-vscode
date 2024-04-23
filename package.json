@@ -82,6 +82,7 @@
         "spml.lsp.moduleMapping": {
           "scope": "machine",
           "type": "array",
+          "markdownDescription": "Modul-zu-Pfad Mapping für die Unterstützung der Pfadvervollständigung bei `<sp:include uri=\"PFAD\">`",
           "items": {
             "type": "object",
             "properties": {
