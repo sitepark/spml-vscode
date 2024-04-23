@@ -37,7 +37,7 @@ build-vscode-extension:
   needs:
     - build-lspml
   script:
-    - cp lspml/target/release/lspml ./resources/lspml-x86
+    - cp lspml/target/release/lspml ./resources/lspml_x86
     - ./node_modules/.bin/vsce pack --out ./spml-vscode.vsix
   artifacts:
     paths:
