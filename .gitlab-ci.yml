@@ -3,13 +3,11 @@ image: node:lts-slim
 stages:
   - build
 
-build-lspml:
+get-lspml:
   stage: build
-  image: rust:latest
   script:
-    - git clone https://github.com/DrWursterich/lspml.git
-    - cargo build --manifest-path ./lspml/Cargo.toml --release
-    - cp lspml/target/release/lspml ./resources/lspml
+    - wget https://github.com/DrWursterich/lspml/releases/latest/download/lspml_x86 -O ./resources/lspml_x86
+    - chmod a+x ./resources/lspml_x86
 
 build-vscode-extension:
   stage: build
@@ -20,7 +18,7 @@ build-vscode-extension:
   before_script:
     - npm ci --cache .npm --prefer-offline
   needs:
-    - build-lspml
+    - get-lspml
   script:
     - ./node_modules/.bin/vsce pack --out ./spml-vscode.vsix
   artifacts:
