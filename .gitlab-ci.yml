@@ -9,7 +9,10 @@ build-lspml:
   script:
     - git clone https://github.com/DrWursterich/lspml.git
     - cargo build --manifest-path ./lspml/Cargo.toml --release
-    - cp lspml/target/release/lspml ./resources/lspml-x86
+  artifacts:
+    paths:
+    - lspml/target/release/lspml
+    expire_in: 20 minutes
 
 build-vscode-extension:
   stage: build
@@ -22,6 +25,7 @@ build-vscode-extension:
   needs:
     - build-lspml
   script:
+    - cp lspml/target/release/lspml ./resources/lspml-x86
     - ./node_modules/.bin/vsce pack --out ./spml-vscode.vsix
   artifacts:
     paths:
