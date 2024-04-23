@@ -19,7 +19,9 @@
   ],
   "contributes": {
     "html": {
-      "customData": ["./spml.html.customData.json"]
+      "customData": [
+        "./spml.html.customData.json"
+      ]
     },
     "htmlLanguageParticipants": [
       {
@@ -31,16 +33,16 @@
       {
         "id": "jsp",
         "aliases": [
-            "Java Server Pages",
-            "jsp",
-            "JSP",
-            "jstl",
-            "JSTL"
+          "Java Server Pages",
+          "jsp",
+          "JSP",
+          "jstl",
+          "JSTL"
         ],
         "extensions": [
-            ".tag",
-            ".jsp",
-            ".jspf"
+          ".tag",
+          ".jsp",
+          ".jspf"
         ],
         "configuration": "./jsp-configuration.json"
       },
@@ -80,22 +82,20 @@
         "spml.lsp.moduleMapping": {
           "scope": "machine",
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "$schema": "",
-              "properties": {
-                "module": {
-                  "type": "string",
-                  "description": "Modul-Id"
-                },
-                "path": {
-                  "type": "string",
-                  "description": "Pfad"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Modul-Id",
+                "type": "string"
+              },
+              "path": {
+                "description": "Pfad",
+                "type": "string"
               }
             }
-          ]
+          },
+          "default": []
         }
       }
     },
@@ -107,14 +107,14 @@
       }
     ],
     "grammars": [
-        {
-          "language": "jsp",
-          "scopeName": "text.html.jsp",
-          "path": "./syntaxes/jsp.tmLanguage.json",
-          "embeddedLanguages": {
-              "source.css": "css",
-              "source.js": "javascript"
-          }
+      {
+        "language": "jsp",
+        "scopeName": "text.html.jsp",
+        "path": "./syntaxes/jsp.tmLanguage.json",
+        "embeddedLanguages": {
+          "source.css": "css",
+          "source.js": "javascript"
+        }
       },
       {
         "path": "./syntaxes/spml.tmLanguage.json",
@@ -138,6 +138,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "@types/vscode": "^1.88.0",
     "@vscode/vsce": "^2.25.0",
     "esbuild": "^0.20.2"
