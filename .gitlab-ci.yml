@@ -4,6 +4,7 @@ stages:
   - build
 
 get-lspml:
+  image: alpine:latest
   stage: build
   script:
     - wget https://github.com/DrWursterich/lspml/releases/latest/download/lspml_x86 -O ./resources/lspml_x86
