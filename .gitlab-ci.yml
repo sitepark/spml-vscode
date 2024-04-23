@@ -1,13 +1,5 @@
 image: node:lts-slim
 
-default:
-  cache:  # Cache modules in between jobs
-    key: $CI_COMMIT_REF_SLUG
-    paths:
-      - .npm/
-  before_script:
-    - npm ci --cache .npm --prefer-offline
-
 stages:
   - build
 
@@ -19,8 +11,14 @@ build-lspml:
     - cargo build --manifest-path ./lspml/Cargo.toml --release
     - cp lspml/target/release/lspml ./resources/lspml
 
-build:
+build-vscode-extension:
   stage: build
+  cache:  # Cache modules in between jobs
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --cache .npm --prefer-offline
   needs:
     - build-lspml
   script:
