@@ -11,8 +11,18 @@ default:
 stages:
   - build
 
+build-lspml:
+  stage: build
+  image: rust:latest
+  script:
+    - git clone https://github.com/DrWursterich/lspml.git
+    - cargo build --manifest-path ./lspml/Cargo.toml --release
+    - cp lspml/target/release/lspml ./resources/lspml
+
 build:
   stage: build
+  needs:
+    - build-lspml
   script:
     - ./node_modules/.bin/vsce pack --out ./spml-vscode.vsix
   artifacts:
