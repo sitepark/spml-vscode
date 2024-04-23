@@ -29,6 +29,22 @@
     ],
     "languages": [
       {
+        "id": "jsp",
+        "aliases": [
+            "Java Server Pages",
+            "jsp",
+            "JSP",
+            "jstl",
+            "JSTL"
+        ],
+        "extensions": [
+            ".tag",
+            ".jsp",
+            ".jspf"
+        ],
+        "configuration": "./jsp-configuration.json"
+      },
+      {
         "id": "spml",
         "aliases": [
           "SitePark Markup Language",
@@ -91,6 +107,15 @@
       }
     ],
     "grammars": [
+        {
+          "language": "jsp",
+          "scopeName": "text.html.jsp",
+          "path": "./syntaxes/jsp.tmLanguage.json",
+          "embeddedLanguages": {
+              "source.css": "css",
+              "source.js": "javascript"
+          }
+      },
       {
         "path": "./syntaxes/spml.tmLanguage.json",
         "language": "spml",
