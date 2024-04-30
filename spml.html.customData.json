@@ -58,6 +58,7 @@
     { "name": "spt:ilink", "void": true },
     { "name": "spt:imageeditor", "void": true },
     { "name": "spt:imp", "void": true },
+    { "name": "spt:number", "void": true },
     { "name": "spt:iterator", "void": true },
     { "name": "spt:personalization", "void": true },
     { "name": "spt:prehtml", "void": true },
