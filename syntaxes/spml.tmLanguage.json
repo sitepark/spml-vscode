@@ -3,6 +3,22 @@
 	"name": "SPML",
 	"patterns": [
 		{
+			"include": "#comment"
+		},
+
+		{
+			"include": "#jsp-declaration"
+		},
+
+		{
+			"include": "jsp-expression"
+		},
+
+		{
+			"include": "#jsp-scriptlet"
+		},
+
+		{
 			"include": "#spml-tags"
 		},
 		{
@@ -99,6 +115,97 @@
 							"name": "invalid.illegal.unexpected-equals-sign.html"
 						}
 					]
+				}
+			]
+		},
+
+		"comment": {
+			"begin": "<%--",
+			"captures": {
+				"0": {
+					"name": "punctuation.definition.comment.jsp"
+				}
+			},
+			"end": "--%>",
+			"name": "comment.block.jsp"
+		},
+		"jsp-declaration": {
+			"begin": "<%!",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.begin.jsp"
+				}
+			},
+			"contentName": "source.java",
+			"end": "(%)>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.end.jsp"
+				},
+				"1": {
+					"name": "source.java"
+				}
+			},
+			"name": "meta.embedded.line.declaration.jsp",
+			"patterns": [
+				{
+					"include": "source.java"
+				}
+			]
+		},
+		"jsp-expression": {
+			"begin": "<%=",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.begin.jsp"
+				}
+			},
+			"contentName": "source.java",
+			"end": "(%)>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.end.jsp"
+				},
+				"1": {
+					"name": "source.java"
+				}
+			},
+			"name": "meta.embedded.line.expression.jsp",
+			"patterns": [
+				{
+					"include": "source.java"
+				}
+			]
+		},
+		"jsp-scriptlet": {
+			"begin": "<%",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.begin.jsp"
+				}
+			},
+			"contentName": "source.java",
+			"end": "(%)>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.end.jsp"
+				},
+				"1": {
+					"name": "source.java"
+				}
+			},
+			"name": "meta.embedded.block.scriptlet.jsp",
+			"patterns": [
+				{
+					"match": "\\{",
+					"name": "punctuation.section.scope.begin.java"
+				},
+				{
+					"match": "\\}",
+					"name": "punctuation.section.scope.end.java"
+				},
+				{
+					"include": "source.java"
 				}
 			]
 		}
