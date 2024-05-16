@@ -26,26 +26,10 @@
     "htmlLanguageParticipants": [
       {
         "languageId": "spml",
-        "autoInsert": true
+        "xautoInsert": true
       }
     ],
     "languages": [
-      {
-        "id": "jsp",
-        "aliases": [
-          "Java Server Pages",
-          "jsp",
-          "JSP",
-          "jstl",
-          "JSTL"
-        ],
-        "extensions": [
-          ".tag",
-          ".jsp",
-          ".jspf"
-        ],
-        "configuration": "./jsp-configuration.json"
-      },
       {
         "id": "spml",
         "aliases": [
@@ -61,6 +45,22 @@
           "dark": "./resources/logo_dark.png"
         },
         "configuration": "./spml.language-configuration.json"
+      },
+      {
+        "id": "jsp",
+        "aliases": [
+          "Java Server Pages",
+          "jsp",
+          "JSP",
+          "jstl",
+          "JSTL"
+        ],
+        "extensions": [
+          ".tag",
+          ".jsp",
+          ".jspf"
+        ],
+        "configuration": "./jsp-configuration.json"
       }
     ],
     "configuration": {
@@ -120,11 +120,10 @@
       {
         "path": "./syntaxes/spml.tmLanguage.json",
         "language": "spml",
-        "scopeName": "text.html.jsp.spml",
+        "scopeName": "text.html.spml",
         "embeddedLanguages": {
           "source.css": "css",
           "source.js": "javascript",
-          "source.jsp": "jsp",
           "meta.embedded.block.javascript": "javascript",
           "meta.embedded.block.css": "css",
           "meta.embedded.block.jsp": "jsp"

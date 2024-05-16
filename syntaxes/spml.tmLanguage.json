@@ -1,9 +1,106 @@
 {
+  "scopeName": "text.html.spml",
   "name": "SPML",
-  "scopeName": "text.html.jsp.spml",
   "patterns": [
+    {
+      "include": "#spml-tags"
+    },
+	{
+	  "include": "text.html.basic"
+	},
     {
       "include": "text.html.jsp"
     }
-  ]
+  ],
+
+  "fileTypes": [".spml"],
+  "repository": {
+    "spml-tags": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.custom.spml.sp",
+          "begin": "<\/?(spt?:[a-z]+)",
+          "patterns": [
+						{
+							"include": "#attributes"
+						}
+					],
+          "end": ">"
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+				{
+					"begin": "([a-z\\-]+)(?![\\w:-])",
+					"beginCaptures": {
+						"0": {
+							"name": "entity.other.attribute-name.html"
+						}
+					},
+					"end": "(?=\\s*+[^=\\s])",
+					"name": "spml.attribute.name",
+          "patterns": [
+						{
+							"include": "#attribute-interior"
+						}
+					]
+				}
+      ]
+    },
+    "attribute-interior": {
+			"patterns": [
+				{
+					"begin": "=",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.separator.key-value.html"
+						}
+					},
+					"end": "(?<=[^\\s=])(?!\\s*=)|(?=/?>)",
+					"patterns": [
+						{
+							"match": "([^\\s\"'=<>`/]|/(?!>))+",
+							"name": "string.unquoted.html"
+						},
+						{
+							"begin": "\"",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.begin.html"
+								}
+							},
+							"end": "\"",
+							"endCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.end.html"
+								}
+							},
+							"name": "string.quoted.double.html"
+						},
+						{
+							"begin": "'",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.begin.html"
+								}
+							},
+							"end": "'",
+							"endCaptures": {
+								"0": {
+									"name": "punctuation.definition.string.end.html"
+								}
+							},
+							"name": "string.quoted.single.html",
+							"patterns": []
+						},
+						{
+							"match": "=",
+							"name": "invalid.illegal.unexpected-equals-sign.html"
+						}
+					]
+				}
+			]
+		}
+  }
 }

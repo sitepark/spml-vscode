@@ -1,4 +1,8 @@
 {
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-html-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "globalAttributes": [],
+  "valueSets": [],
   "tags": [
     { "name": "sp:include", "void": true },
     { "name": "sp:argument", "void": true },
