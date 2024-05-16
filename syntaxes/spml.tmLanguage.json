@@ -1,36 +1,36 @@
 {
-  "scopeName": "text.html.spml",
-  "name": "SPML",
-  "patterns": [
-    {
-      "include": "#spml-tags"
-    },
-	{
-	  "include": "text.html.basic"
-	},
-    {
-      "include": "text.html.jsp"
-    }
-  ],
+	"scopeName": "text.html.spml",
+	"name": "SPML",
+	"patterns": [
+		{
+			"include": "#spml-tags"
+		},
+		{
+			"include": "text.html.basic"
+		},
+		{
+			"include": "text.html.jsp"
+		}
+	],
 
-  "fileTypes": [".spml"],
-  "repository": {
-    "spml-tags": {
-      "patterns": [
-        {
-          "name": "entity.name.tag.custom.spml.sp",
-          "begin": "<\/?(spt?:[a-z]+)",
-          "patterns": [
+	"fileTypes": [".spml"],
+	"repository": {
+		"spml-tags": {
+			"patterns": [
+				{
+					"name": "entity.name.tag.custom.spml.sp",
+					"begin": "</?(spt?:[a-zA-Z0-9]+)",
+					"patterns": [
 						{
 							"include": "#attributes"
 						}
 					],
-          "end": ">"
-        }
-      ]
-    },
-    "attributes": {
-      "patterns": [
+					"end": ">"
+				}
+			]
+		},
+		"attributes": {
+			"patterns": [
 				{
 					"begin": "([a-z\\-]+)(?![\\w:-])",
 					"beginCaptures": {
@@ -40,15 +40,15 @@
 					},
 					"end": "(?=\\s*+[^=\\s])",
 					"name": "spml.attribute.name",
-          "patterns": [
+					"patterns": [
 						{
 							"include": "#attribute-interior"
 						}
 					]
 				}
-      ]
-    },
-    "attribute-interior": {
+			]
+		},
+		"attribute-interior": {
 			"patterns": [
 				{
 					"begin": "=",
@@ -102,5 +102,5 @@
 				}
 			]
 		}
-  }
+	}
 }
