@@ -1,5 +1,5 @@
-import { ExtensionContext, commands, window, workspace } from "vscode";
-import { LanguageClient } from "vscode-languageclient/node";
+import { type ExtensionContext, commands, window, workspace } from "vscode";
+import type { LanguageClient } from "vscode-languageclient/node";
 
 import * as fs from "node:fs";
 import { createLogFileReader } from "./createLogFileReader";
@@ -8,51 +8,51 @@ import { createLanguageClient, getLogFile } from "./lspml";
 let client: LanguageClient;
 
 export async function activate(ctx: ExtensionContext) {
-  const outputChannel = window.createOutputChannel("SPML", "spml");
-  const restart = () => {
-    console.log("RESTART");
-    outputChannel.appendLine("RESTART");
-    deactivate();
-    for (const sub of ctx.subscriptions) {
-      try {
-        sub.dispose();
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    activate(ctx);
-  };
+	const outputChannel = window.createOutputChannel("SPML", "spml");
+	const restart = () => {
+		console.log("RESTART");
+		outputChannel.appendLine("RESTART");
+		deactivate();
+		for (const sub of ctx.subscriptions) {
+			try {
+				sub.dispose();
+			} catch (e) {
+				console.error(e);
+			}
+		}
+		activate(ctx);
+	};
 
-  const logChannel = window.createOutputChannel("LSPML", {
-    log: true,
-  });
+	const logChannel = window.createOutputChannel("LSPML", {
+		log: true,
+	});
 
-  client = await createLanguageClient(ctx);
-  client.start().then(() => {
-    outputChannel.appendLine("Started LSPML!");
-  });
+	client = await createLanguageClient(ctx);
+	client.start().then(() => {
+		outputChannel.appendLine("Started LSPML!");
+	});
 
-  const logFile = await getLogFile(ctx);
-  ctx.subscriptions.push(client);
-  ctx.subscriptions.push(outputChannel, logChannel);
-  ctx.subscriptions.push(createLogFileReader(logFile, logChannel));
-  ctx.subscriptions.push({
-    dispose: () => {
-      fs.existsSync(logFile) && fs.unlinkSync(logFile);
-    },
-  });
-  ctx.subscriptions.push(
-    commands.registerCommand("spml.restart", () => restart()),
-  );
-  ctx.subscriptions.push(
-    workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration("spml.lsp")) {
-        restart();
-      }
-    }),
-  );
+	const logFile = await getLogFile(ctx);
+	ctx.subscriptions.push(client);
+	ctx.subscriptions.push(outputChannel, logChannel);
+	ctx.subscriptions.push(createLogFileReader(logFile, logChannel));
+	ctx.subscriptions.push({
+		dispose: () => {
+			fs.existsSync(logFile) && fs.unlinkSync(logFile);
+		},
+	});
+	ctx.subscriptions.push(
+		commands.registerCommand("spml.restart", () => restart()),
+	);
+	ctx.subscriptions.push(
+		workspace.onDidChangeConfiguration((e) => {
+			if (e.affectsConfiguration("spml.lsp")) {
+				restart();
+			}
+		}),
+	);
 }
 
 export function deactivate(): Thenable<void> {
-  return client?.stop();
+	return client?.stop();
 }

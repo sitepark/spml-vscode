@@ -1,48 +1,48 @@
 {
-  "splog": {
-    "prefix": ["splog"],
-    "body": [
-      "<sp:log level=\"${1|FATAL,ERROR,WARN,INFO,DEBUG,TRACE|}\">$2</sp:log>"
-    ],
-    "description": "snippet for sp:log"
-  },
-  "spprint": {
-    "prefix": ["spprint"],
-    "body": ["<sp:print value=\"$1\" />"],
-    "description": "snippet for sp:print value"
-  },
-  "spprinto": {
-    "prefix": ["spprinto"],
-    "body": ["<sp:print object=\"$1\" />"],
-    "description": "snipet for sp:print object"
-  },
-  "spinclude": {
-    "prefix": ["spinclude"],
-    "body": ["<sp:include module=\"$1\" uri=\"$2\" >$3</sp:include>"],
-    "description": "snippet for sp:include"
-  },
-  "<%@": {
-    "prefix": ["<%@"],
-    "body": [
-      "<%@ page language=\"java\" pageEncoding=\"UTF-8\" contentType=\"text/html; charset=UTF-8\"",
-      "%><%@ taglib uri=\"http://www.sitepark.com/taglibs/core\" prefix=\"sp\"",
-      "%><%@ taglib tagdir=\"/WEB-INF/tags/spt\" prefix=\"spt\"",
-      "%>$1"
-    ],
-    "description": "snippet for sp:include"
-  },
-  "spifelse": {
-    "prefix": ["spifelse"],
-    "body": [
-      "<sp:condition>",
-      "\t<sp:if $1>",
-      "\t\t$2",
-      "\t</sp:if>",
-      "\t<sp:else>",
-      "\t\t$3",
-      "\t</sp:else>",
-      "</sp:condition>"
-    ],
-    "description": "snippet for sp:if & sp:else within a sp:condition"
-  }
+	"splog": {
+		"prefix": ["splog"],
+		"body": [
+			"<sp:log level=\"${1|FATAL,ERROR,WARN,INFO,DEBUG,TRACE|}\">$2</sp:log>"
+		],
+		"description": "snippet for sp:log"
+	},
+	"spprint": {
+		"prefix": ["spprint"],
+		"body": ["<sp:print value=\"$1\" />"],
+		"description": "snippet for sp:print value"
+	},
+	"spprinto": {
+		"prefix": ["spprinto"],
+		"body": ["<sp:print object=\"$1\" />"],
+		"description": "snipet for sp:print object"
+	},
+	"spinclude": {
+		"prefix": ["spinclude"],
+		"body": ["<sp:include module=\"$1\" uri=\"$2\" >$3</sp:include>"],
+		"description": "snippet for sp:include"
+	},
+	"<%@": {
+		"prefix": ["<%@"],
+		"body": [
+			"<%@ page language=\"java\" pageEncoding=\"UTF-8\" contentType=\"text/html; charset=UTF-8\"",
+			"%><%@ taglib uri=\"http://www.sitepark.com/taglibs/core\" prefix=\"sp\"",
+			"%><%@ taglib tagdir=\"/WEB-INF/tags/spt\" prefix=\"spt\"",
+			"%>$1"
+		],
+		"description": "snippet for sp:include"
+	},
+	"spifelse": {
+		"prefix": ["spifelse"],
+		"body": [
+			"<sp:condition>",
+			"\t<sp:if $1>",
+			"\t\t$2",
+			"\t</sp:if>",
+			"\t<sp:else>",
+			"\t\t$3",
+			"\t</sp:else>",
+			"</sp:condition>"
+		],
+		"description": "snippet for sp:if & sp:else within a sp:condition"
+	}
 }

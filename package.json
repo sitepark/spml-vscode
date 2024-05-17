@@ -1,145 +1,126 @@
 {
-  "name": "spml-vscode",
-  "description": "Language Support for SPML (SitePark Markup Language)",
-  "version": "0.0.1",
-  "contributors": [
-    "felix-becker",
-    "rene-schleusner",
-    "mario-schaeper"
-  ],
-  "engines": {
-    "vscode": "^1.88.0"
-  },
-  "publisher": "sitepark",
-  "icon": "./resources/logo_dark.png",
-  "main": "./dist/extension.js",
-  "dependencies": {
-    "vscode-languageclient": "^9.0.0"
-  },
-  "extensionDependencies": [
-    "vscode.html-language-features"
-  ],
-  "contributes": {
-    "html": {
-      "customData": [
-        "./spml.html.customData.json"
-      ]
-    },
-    "htmlLanguageParticipants": [
-      {
-        "languageId": "spml",
-        "xautoInsert": true
-      }
-    ],
-    "languages": [
-      {
-        "id": "spml",
-        "aliases": [
-          "SitePark Markup Language",
-          "spml",
-          "SPML"
-        ],
-        "extensions": [
-          ".spml"
-        ],
-        "icon": {
-          "light": "./resources/logo_light.png",
-          "dark": "./resources/logo_dark.png"
-        },
-        "configuration": "./spml.language-configuration.json"
-      }
-    ],
-    "configuration": {
-      "title": "SPML",
-      "type": "object",
-      "properties": {
-        "spml.lsp.loglevel": {
-          "description": "Log-Level von LSPML",
-          "type": "string",
-          "default": "INFO",
-          "enum": [
-            "TRACE",
-            "DEBUG",
-            "INFO",
-            "WARN"
-          ],
-          "scope": "machine"
-        },
-        "spml.lsp.moduleMapping": {
-          "scope": "machine",
-          "type": "array",
-          "markdownDescription": "Modul-zu-Pfad Mapping für die Unterstützung der Pfadvervollständigung bei `<sp:include uri=\"PFAD\">`",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Modul-Id",
-                "type": "string"
-              },
-              "path": {
-                "description": "Pfad",
-                "type": "string"
-              }
-            }
-          },
-          "default": []
-        }
-      }
-    },
-    "commands": [
-      {
-        "command": "spml.restart",
-        "category": "SPML",
-        "title": "LSPML neustarten"
-      }
-    ],
-    "grammars": [
-      {
-        "path": "./syntaxes/spml.tmLanguage.json",
-        "language": "spml",
-        "scopeName": "text.html.spml",
-        "embeddedLanguages": {
-          "source.css": "css",
-          "source.js": "javascript",
-          "meta.embedded.block.javascript": "javascript",
-          "meta.embedded.block.css": "css",
-          "meta.embedded.block.jsp": "jsp"
-        }
-      }
-    ],
-    "snippets": [
-      {
-        "language": "spml",
-        "path": "./snippets/spml.code-snippets"
-      }
-    ]
-  },
-  "devDependencies": {
-    "@types/node": "^20.12.7",
-    "@types/vscode": "^1.88.0",
-    "@vscode/vsce": "^2.25.0",
-    "biome": "^0.3.3",
-    "esbuild": "^0.20.2",
-    "git-cliff": "^2.2.2",
-    "lefthook": "^1.6.12"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sitepark/spml-vscode"
-  },
-  "scripts": {
-    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "watch": "bun run compile --sourcemap --watch",
-    "package": "vsce package --skip-license -o spml-vscode.vsix",
-    "build": "bun run compile --minify && bun run package",
-    "install-extension": "code --install-extension spml-vscode.vsix --force",
-    "format": "biome format . --write",
-    "check": "biome check .",
-    "check:apply": "biome check . --apply-unsafe",
-    "pack:dev": "bun run compile && bun run package && bun run install-extension",
-    "tsc": "tsc",
-    "prepare": "lefthook install",
-    "changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
-  },
-  "packageManager": "bun@1.1.8"
+	"name": "spml-vscode",
+	"description": "Language Support for SPML (SitePark Markup Language)",
+	"version": "0.0.1",
+	"contributors": ["felix-becker", "rene-schleusner", "mario-schaeper"],
+	"engines": {
+		"vscode": "^1.88.0"
+	},
+	"publisher": "sitepark",
+	"icon": "./resources/logo_dark.png",
+	"main": "./dist/extension.js",
+	"dependencies": {
+		"vscode-languageclient": "^9.0.0"
+	},
+	"extensionDependencies": ["vscode.html-language-features"],
+	"contributes": {
+		"html": {
+			"customData": ["./spml.html.customData.json"]
+		},
+		"htmlLanguageParticipants": [
+			{
+				"languageId": "spml",
+				"xautoInsert": true
+			}
+		],
+		"languages": [
+			{
+				"id": "spml",
+				"aliases": ["SitePark Markup Language", "spml", "SPML"],
+				"extensions": [".spml"],
+				"icon": {
+					"light": "./resources/logo_light.png",
+					"dark": "./resources/logo_dark.png"
+				},
+				"configuration": "./spml.language-configuration.json"
+			}
+		],
+		"configuration": {
+			"title": "SPML",
+			"type": "object",
+			"properties": {
+				"spml.lsp.loglevel": {
+					"description": "Log-Level von LSPML",
+					"type": "string",
+					"default": "INFO",
+					"enum": ["TRACE", "DEBUG", "INFO", "WARN"],
+					"scope": "machine"
+				},
+				"spml.lsp.moduleMapping": {
+					"scope": "machine",
+					"type": "array",
+					"markdownDescription": "Modul-zu-Pfad Mapping für die Unterstützung der Pfadvervollständigung bei `<sp:include uri=\"PFAD\">`",
+					"items": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"description": "Modul-Id",
+								"type": "string"
+							},
+							"path": {
+								"description": "Pfad",
+								"type": "string"
+							}
+						}
+					},
+					"default": []
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "spml.restart",
+				"category": "SPML",
+				"title": "LSPML neustarten"
+			}
+		],
+		"grammars": [
+			{
+				"path": "./syntaxes/spml.tmLanguage.json",
+				"language": "spml",
+				"scopeName": "text.html.spml",
+				"embeddedLanguages": {
+					"source.css": "css",
+					"source.js": "javascript",
+					"meta.embedded.block.javascript": "javascript",
+					"meta.embedded.block.css": "css",
+					"meta.embedded.block.jsp": "jsp"
+				}
+			}
+		],
+		"snippets": [
+			{
+				"language": "spml",
+				"path": "./snippets/spml.code-snippets"
+			}
+		]
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.7.3",
+		"@types/node": "^20.12.7",
+		"@types/vscode": "^1.88.0",
+		"@vscode/vsce": "^2.25.0",
+		"esbuild": "^0.20.2",
+		"git-cliff": "^2.2.2",
+		"lefthook": "^1.6.12"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sitepark/spml-vscode"
+	},
+	"scripts": {
+		"compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+		"watch": "bun run compile --sourcemap --watch",
+		"package": "vsce package --skip-license -o spml-vscode.vsix",
+		"build": "bun run compile --minify && bun run package",
+		"install-extension": "code --install-extension spml-vscode.vsix --force",
+		"format": "biome format . --write",
+		"check": "biome check .",
+		"check:apply": "biome check . --apply-unsafe",
+		"pack:dev": "bun run compile && bun run package && bun run install-extension",
+		"tsc": "tsc",
+		"prepare": "lefthook install",
+		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
+	},
+	"packageManager": "bun@1.1.8"
 }
