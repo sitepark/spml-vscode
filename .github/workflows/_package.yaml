@@ -28,7 +28,7 @@ jobs:
       - name: Restore compiled extension from cache
         uses: actions/cache/restore@v4
         with:
-          path: out/
+          path: dist/
           key: compiled-extension-${{ github.sha }}
 
       - name: Download compiled lsp from artifacts
