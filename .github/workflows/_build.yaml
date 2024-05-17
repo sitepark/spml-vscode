@@ -23,7 +23,7 @@ jobs:
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
-          path: /target/release/lspml
+          path: target/release/lspml
           name: lspml-binary
 
   build-extension:
