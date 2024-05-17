@@ -25,6 +25,7 @@ jobs:
           types: |
             fix
             feat
+            build
             chore
             ci
             docs
