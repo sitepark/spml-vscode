@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: lspml/target/release/lspml
-          key: compiled-lsp
+          key: compiled-lsp-${{ env.lsp_sha }}
 
       - name: Embedd lsp
         run: cp lspml/target/release/lspml ./resources/lspml_x86

@@ -17,16 +17,18 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Checkout LSP
-        run: git clone https://github.com/DrWursterich/lspml.git
+        run: |
+          git clone https://github.com/DrWursterich/lspml.git
+          echo "lsp_sha=$(git -C lspml rev-parse HEAD)" >> "$GITHUB_ENV"
 
       - name: Compile LSP
         run: cargo build --manifest-path ./lspml/Cargo.toml --release
 
       - name: Upload LSP as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/cache@v4
         with:
           path: lspml/target/release/lspml
-          key: compiled-lsp
+          key: compiled-lsp-${{ env.lsp_sha }}
 
   build-extension:
     name: Build Extension
