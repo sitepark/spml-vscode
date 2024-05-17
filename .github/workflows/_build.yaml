@@ -6,25 +6,35 @@ on:
 
 jobs:
   build-lsp:
+    name: Build LSPML
     runs-on: ubuntu-latest
-    container:
-      image: rust:latest
-      env:
-        CARGO_HOME: /.cargo
-      volumes:
-        - ./lspml:/lspml
     steps:
       - uses: actions/checkout@v4
+        with:
+          repository: https://github.com/DrWursterich/lspml.git
 
-      - name: Checkout LSP
-        id: checkout-lsp
-        run: |
-          git clone https://github.com/DrWursterich/lspml.git
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: true
+      - name: Set up cargo cache
+        uses: actions/cache@v4
+        continue-on-error: false
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
 
-      - name: Compile LSP
+      - name: Compile LSPML
         run: cargo build --manifest-path ./lspml/Cargo.toml --release
 
-      - name: Upload LSP as artifact
+      - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
           path: lspml/target/release/lspml
