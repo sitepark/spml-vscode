@@ -1,0 +1,70 @@
+# Reusable Package Workflow
+name: _Package
+
+on:
+  workflow_call:
+    inputs:
+      nightly:
+        type: boolean
+        default: false
+        required: false
+        description: 'Publish a nightly build'
+    outputs:
+      version:
+        value: ${{ jobs.package.outputs.version }}
+        description: 'Version of the packaged extension'
+      nightly:
+        value: ${{ jobs.package.outputs.nightly }}
+        description: 'Whether the packaged extension is a nightly build'
+
+jobs:
+  package:
+    name: Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore compiled extension from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: out/
+          key: compiled-extension-${{ github.sha }}
+
+      - name: Restore compiled lsp from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: lspml/target/release/lspml
+          key: compiled-lsp
+
+      - name: Embedd lsp
+        run: cp lspml/target/release/lspml ./resources/lspml_x86
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Patch package.json version
+        if: ${{ github.event.inputs.nightly == 'true' }}
+        run: bun scripts/patch-package-version.ts
+
+      - name: Read version from package.json
+        id: version
+        run: echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Package stable extension
+        if: ${{ github.event.inputs.nightly != 'true' }}
+        run: bun vsce package -o spml-vscode.vsix
+
+      - name: Package pre-release extension
+        if: ${{ github.event.inputs.nightly == 'true' }}
+        run: bun vsce package --pre-release -o spml-vscode.vsix
+
+      - name: Upload the artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spml-vscode.vsix
+          path: spml-vscode.vsix
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      nightly: ${{ github.event.inputs.nightly == 'true' }}

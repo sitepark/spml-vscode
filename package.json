@@ -47,22 +47,6 @@
           "dark": "./resources/logo_dark.png"
         },
         "configuration": "./spml.language-configuration.json"
-      },
-      {
-        "id": "jsp",
-        "aliases": [
-          "Java Server Pages",
-          "jsp",
-          "JSP",
-          "jstl",
-          "JSTL"
-        ],
-        "extensions": [
-          ".tag",
-          ".jsp",
-          ".jspf"
-        ],
-        "configuration": "./jsp-configuration.json"
       }
     ],
     "configuration": {
@@ -111,15 +95,6 @@
     ],
     "grammars": [
       {
-        "language": "jsp",
-        "scopeName": "text.html.jsp",
-        "path": "./syntaxes/jsp.tmLanguage.json",
-        "embeddedLanguages": {
-          "source.css": "css",
-          "source.js": "javascript"
-        }
-      },
-      {
         "path": "./syntaxes/spml.tmLanguage.json",
         "language": "spml",
         "scopeName": "text.html.spml",
@@ -143,17 +118,28 @@
     "@types/node": "^20.12.7",
     "@types/vscode": "^1.88.0",
     "@vscode/vsce": "^2.25.0",
-    "esbuild": "^0.20.2"
+    "biome": "^0.3.3",
+    "esbuild": "^0.20.2",
+    "git-cliff": "^2.2.2",
+    "lefthook": "^1.6.12"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.sitepark.com/internal/spml-vscode"
+    "url": "https://github.com/sitepark/spml-vscode"
   },
   "scripts": {
-    "vscode:prepublish": "npm run esbuild-base --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "esbuild": "npm run esbuild-base --sourcemap",
-    "esbuild-watch": "npm run esbuild-base --sourcemap --watch",
-    "test-compile": "tsc -p ./"
-  }
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "watch": "bun run compile --sourcemap --watch",
+    "package": "vsce package --skip-license -o spml-vscode.vsix",
+    "build": "bun run compile --minify && bun run package",
+    "install-extension": "code --install-extension spml-vscode.vsix --force",
+    "format": "biome format . --write",
+    "check": "biome check .",
+    "check:apply": "biome check . --apply-unsafe",
+    "pack:dev": "bun run compile && bun run package && bun run install-extension",
+    "tsc": "tsc",
+    "prepare": "lefthook install",
+    "changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
+  },
+  "packageManager": "bun@1.1.8"
 }
