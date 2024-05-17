@@ -3,7 +3,9 @@
   "description": "Language Support for SPML (SitePark Markup Language)",
   "version": "0.0.1",
   "contributors": [
-    "felix-becker"
+    "felix-becker",
+    "rene-schleusner",
+    "mario-schaeper"
   ],
   "engines": {
     "vscode": "^1.88.0"
