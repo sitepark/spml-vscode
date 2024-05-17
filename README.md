@@ -9,7 +9,7 @@
 
 ### The core functionality is provided by [lspml](https://github.com/DrWursterich/lspml), an dedicated language server written in Rust. ⭐
 
-![example-video](docs/example.webp)
+![example-video](./docs/example.webp)
 
 **Supported features:**
 
