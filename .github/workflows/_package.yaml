@@ -31,15 +31,11 @@ jobs:
           path: out/
           key: compiled-extension-${{ github.sha }}
 
-      - name: Restore compiled lsp from cache
-        uses: actions/cache/restore@v4
-
+      - name: Download compiled lsp from artifacts
+        uses: actions/download-artifact@4
         with:
-          path: lspml/target/release/lspml
-          key: compiled-lsp-${{needs.build-lsp.outputs.lsp-sha}}
-
-      - name: Embedd lsp
-        run: cp lspml/target/release/lspml ./resources/lspml_x86
+          name: lspml-binary
+          path: resources/lspml_x86
 
       - name: Setup
         uses: ./.github/actions/setup

@@ -6,8 +6,6 @@ on:
 
 jobs:
   build-lsp:
-    outputs:
-      lsp-sha: ${{ steps.checkout-lsp.outputs.lsp_sha }}
     runs-on: ubuntu-latest
     container:
       image: rust:latest
@@ -22,16 +20,15 @@ jobs:
         id: checkout-lsp
         run: |
           git clone https://github.com/DrWursterich/lspml.git
-          echo "lsp_sha=$(git -C lspml rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Compile LSP
         run: cargo build --manifest-path ./lspml/Cargo.toml --release
 
       - name: Upload LSP as artifact
-        uses: actions/cache@v4
+        uses: actions/upload-artifact@v4
         with:
           path: lspml/target/release/lspml
-          key: compiled-lsp-${{ steps.checkout-lsp.outputs.lsp_sha }}
+          name: lspml-binary
 
   build-extension:
     name: Build Extension
