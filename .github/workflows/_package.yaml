@@ -32,7 +32,7 @@ jobs:
           key: compiled-extension-${{ github.sha }}
 
       - name: Download compiled lsp from artifacts
-        uses: actions/download-artifact@4
+        uses: actions/download-artifact@v4
         with:
           name: lspml-binary
           path: resources/lspml_x86
