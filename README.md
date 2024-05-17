@@ -1,34 +1,63 @@
-## SitePark Markup Language (SPML) for Visual Studio Code
+<h1 align="center">
+  <br>
+    <img src="https://www.sitepark.com/icon-512.png" alt="logo" width="200">
+  <br>
+  SitePark Markup Language (<a href="https://wiki.sitepark.com/index.php/Kategorie:Tag-Referenz" target="_blank" />SPML</a>)
+  <br>
+  <br>
+</h1>
 
-SPML language support for Visual Studio Code
+### The core functionality is provided by [lspml](https://github.com/DrWursterich/lspml), an dedicated language server written in Rust. ⭐
 
-**WORK IN PROGRESS**
+![example-video](docs/example.webp)
 
-## How to test/debug
+**Supported features:**
 
-#### Language Server installieren
+- go to definition for variables and `<sp:include>` tag `uri` attributes
+- hover for documentation of
+    - most tags
+    - most attributes
+    - attribute enum values
+    - global functions in spel attribute values
+- diagnostics on:
+    - syntax errors
+    - misplaced, unclosed and deprecated tags
+    - duplicate, required and deprecated attributes / tag-bodies
+    - nonexistent files in `<sp:include>` and similar tags
+    - sitepark expression language (spel):
+        - syntax errors
+        - nonexistent global functions
+        - incorrect argument counts for global functions
+- completion for:
+    - tags
+    - `</`, closing the last unclosed tag
+    - attributes
+    - attribute values that either:
+        - have a fixed set of possible values
+        - point to another spml file
+        - refer to an spml module
+- semantic highlighting for attribute values that expect:
+    - conditions
+    - expressions
+    - identifiers
+    - objects
+    - regular expressions
+    - text
+    - uris
+    - to be comparable (for `<sp:if>` and `<sp:elseif>` `eq`/`gt`/...)
+- code actions to:
+    - generate a default file header
+    - fix small spel syntax errors (`quickfix`)
+    - fix all `quickfix`-able errors at once (`source.fixAll`)
+    - split `<sp:if>` `condition` into `name` and `eq`/`gt`/`isNull`/...
+    - join `<sp:if>` `name` and `eq`/`gt`/`isNull`/... into `condition`
 
-Der Language Server ist zur Zeit noch nicht in der Extension verpackt und muss manuell installiert werden.
 
-Die benötigten Repos findet man im Moment hier:<br>
-https://github.com/DrWursterich/lspml<br>
-https://github.com/DrWursterich/tree-sitter-spml
+## Getting Started
+1. Install the extension
+2. Change File association for `*.spml` files to spml
 
-- Mario nach Zugang fragen und Repos klonen.
-- ins `lspml`-Repo navigieren
-- in der `Cargo.toml` den Pfad zum lokalen `tree-sitter-spml`-Repo anpassen
-- mit `cargo build` bauen (ggfs vorher cargo installieren)
+## Configuration
+For the path completion of the `uri` attribute of `sp:include`, a mapping from module ID to file system path must be defined in the settings.
 
-Dannach sollte in `./target/debug` die ausführbare binary `lspml` liegen
-
-#### Extension testen
-
-- Dieses Repo klonen und in VSCode öffnen
-- in `extension.js` Dateipfad `PATH_TO_LSPML_BINARY` anpassen, sodass dieser auf die binary zeigt
-- bei geöffneter `extension.js` Debug-Menü mit <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> öffnen und "Run and Debug" auswählen
-
-Es sollte sich nun ein weiteres VSCode-Fenster öffnen, in dem die Extension läuft. spml-Dateien sollten nun mit der Sprache
-SPML assoziiert sein.<br>
-Falls nicht: beliebige spml-Datei öffnen -> Command Palette -> "Change Language Mode" -> "Configure File Association for '.spml'" -> SitePark Markup Language.
-
-Innerhalb von spml-Dateien sollte der Language Server dann laufen. Tipp: Mit <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd> Entwicklerkonsole öffnen.
+Open the Settings and go to the SPML section and declare a module-mapping.
