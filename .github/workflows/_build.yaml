@@ -13,24 +13,8 @@ jobs:
         with:
           repository: DrWursterich/lspml
 
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          override: true
-          toolchain: stable
-      - name: Set up cargo cache
-        uses: actions/cache@v4
-        continue-on-error: false
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
+      - run: rustup toolchain install stable --profile minimal
+      - uses: Swatinem/rust-cache@v2
 
       - name: Compile LSPML
         run: cargo build --release
@@ -38,7 +22,7 @@ jobs:
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
-          path: target/release/lspml
+          path: /target/release/lspml
           name: lspml-binary
 
   build-extension:
