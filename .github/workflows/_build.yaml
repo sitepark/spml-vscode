@@ -33,7 +33,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-
 
       - name: Compile LSPML
-        run: cargo build --manifest-path ./lspml/Cargo.toml --release
+        run: cargo build --release
 
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
