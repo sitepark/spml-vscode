@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-### The core functionality is provided by [lspml](https://github.com/DrWursterich/lspml), an dedicated language server written in Rust. ⭐
+### The core functionality is provided by [lspml](https://github.com/DrWursterich/lspml), a dedicated language server written in Rust. ⭐
 
 ![example-video](./docs/example.webp)
 
