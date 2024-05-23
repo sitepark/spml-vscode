@@ -12,6 +12,10 @@
 	"dependencies": {
 		"vscode-languageclient": "^9.0.0"
 	},
+	"galleryBanner": {
+		"color": "#fbba00",
+		"theme": "dark"
+	},
 	"keywords": ["sitepark", "spml"],
 	"license": "MIT",
 	"extensionDependencies": ["vscode.html-language-features"],
