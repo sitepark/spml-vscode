@@ -12,6 +12,7 @@
 	"dependencies": {
 		"vscode-languageclient": "^9.0.0"
 	},
+	"license": "MIT",
 	"extensionDependencies": ["vscode.html-language-features"],
 	"contributes": {
 		"html": {
