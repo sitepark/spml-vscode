@@ -13,7 +13,7 @@
 		"vscode-languageclient": "^9.0.0"
 	},
 	"galleryBanner": {
-		"color": "#fbba00",
+		"color": "#3c3c3b",
 		"theme": "dark"
 	},
 	"keywords": ["sitepark", "spml"],
