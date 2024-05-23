@@ -2,7 +2,7 @@
   <br>
     <img src="https://www.sitepark.com/icon-512.png" alt="logo" width="200">
   <br>
-  SitePark Markup Language (<a href="https://wiki.sitepark.com/index.php/Kategorie:Tag-Referenz" target="_blank" />SPML</a>)
+  Sitepark Markup Language (<a href="https://wiki.sitepark.com/index.php/Kategorie:Tag-Referenz" target="_blank" />SPML</a>)
   <br>
   <br>
 </h1>
