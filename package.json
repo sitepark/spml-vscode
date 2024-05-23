@@ -12,6 +12,7 @@
 	"dependencies": {
 		"vscode-languageclient": "^9.0.0"
 	},
+	"keywords": ["sitepark", "spml"],
 	"license": "MIT",
 	"extensionDependencies": ["vscode.html-language-features"],
 	"contributes": {
@@ -27,7 +28,7 @@
 		"languages": [
 			{
 				"id": "spml",
-				"aliases": ["SitePark Markup Language", "spml", "SPML"],
+				"aliases": ["Sitepark Markup Language", "spml", "SPML"],
 				"extensions": [".spml"],
 				"icon": {
 					"light": "./resources/logo_light.png",
