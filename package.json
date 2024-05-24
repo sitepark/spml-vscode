@@ -16,6 +16,7 @@
 		"color": "#3c3c3b",
 		"theme": "dark"
 	},
+	"markdown": "github",
 	"keywords": ["sitepark", "spml"],
 	"license": "MIT",
 	"extensionDependencies": ["vscode.html-language-features"],
