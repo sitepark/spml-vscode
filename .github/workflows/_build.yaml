@@ -52,15 +52,16 @@ jobs:
           BIN_OUTPUT="target/${{ matrix.target }}/release/lspml${BIN_SUFFIX}"
  
           # Define a better name for the final binary
-          BIN_RELEASE="lspml-${{ matrix.name }}${BIN_SUFFIX}"
+          BIN_RELEASE="dist/lspml-${{ matrix.name }}${BIN_SUFFIX}"
 
           # Move the built binary where you want it
+          mkdir "dist"
           mv "${BIN_OUTPUT}" "${BIN_RELEASE}"
  
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
-          path: target/release/lspml*
+          path: dist/lspml-*
           name: lspml-binary
 
   build-extension:
