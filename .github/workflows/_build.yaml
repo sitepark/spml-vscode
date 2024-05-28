@@ -7,23 +7,61 @@ on:
 jobs:
   build-lsp:
     name: Build LSPML
-    runs-on: ubuntu-latest
+    # Set the job to run on the platform specified by the matrix below
+    runs-on: ${{ matrix.runner }}
+    # Define the build matrix for cross-compilation
+    strategy:
+      matrix:
+        include:
+          - name: linux-amd64
+            runner: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - name: win-amd64
+            runner: windows-latest
+            target: x86_64-pc-windows-msvc
+          - name: macos-amd64
+            runner: macos-latest
+            target: x86_64-apple-darwin
+          - name: macos-arm64
+            runner: macos-latest
+            target: aarch64-apple-darwin
     steps:
       - uses: actions/checkout@v4
         with:
           repository: DrWursterich/lspml
 
-      - run: rustup toolchain install stable --profile minimal --no-self-update
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: "${{ matrix.target }}"
 
-      - uses: Swatinem/rust-cache@v2
+      - name: Setup Cache
+        uses: Swatinem/rust-cache@v2
 
-      - name: Compile LSPML
-        run: cargo build --release
+      - name: Build Binary
+        run: cargo build --verbose --locked --release --target ${{ matrix.target }}
 
+      - name: Release Binary
+        shell: bash
+        run: |
+          BIN_SUFFIX=""
+          if [[ "${{ matrix.runner }}" == "windows-latest" ]]; then
+            BIN_SUFFIX=".exe"
+          fi
+          
+          # The built binary output location
+          BIN_OUTPUT="target/${{ matrix.target }}/release/lspml${BIN_SUFFIX}"
+ 
+          # Define a better name for the final binary
+          BIN_RELEASE="lspml-${{ matrix.name }}${BIN_SUFFIX}"
+
+          # Move the built binary where you want it
+          mv "${BIN_OUTPUT}" "${BIN_RELEASE}"
+ 
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
-          path: target/release/lspml
+          path: target/release/lspml*
           name: lspml-binary
 
   build-extension:
