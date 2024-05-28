@@ -30,10 +30,7 @@ jobs:
         with:
           repository: DrWursterich/lspml
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: "${{ matrix.target }}"
+      - run: rustup toolchain install stable --profile minimal --no-self-update
           
       - name: Build Binary
         run: cargo build --verbose --locked --release --target ${{ matrix.target }}
