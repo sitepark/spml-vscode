@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: dist/lspml-*
-          name: lspml-binary
+          name: lspml-${{ matrix.name }}
 
   build-extension:
     name: Build Extension
