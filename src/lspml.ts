@@ -35,10 +35,21 @@ export interface ModuleMappingEntry {
 
 export function getLspmlPath(ctx: ExtensionContext): string {
 	const arch = process.arch;
-	if (arch === "x64") {
-		return ctx.asAbsolutePath("resources/lspml_x86");
+	const platform = process.platform;
+	const fileMapping: Record<string, string> = {
+		"win32-x64": "lspml-win-amd64.exe",
+
+		"linux-x64": "lspml-linux-amd64",
+
+		"darwin-x64": "lspml-macos-amd64",
+		"darwin-arm": "lspml-macos-arm",
+		"darwin-arm64": "lspml-macos-arm",
+	};
+	const path = fileMapping[`${platform}-${arch}`];
+	if (path) {
+		return ctx.asAbsolutePath(`resources/${path}`);
 	}
-	throw new Error(`Unsupported architecture ${arch}`);
+	throw new Error(`Unsupported architecture or platform ${platform}-${arch}`);
 }
 
 export function convertArgsToArray(args: LspmlArgs): string[] {
