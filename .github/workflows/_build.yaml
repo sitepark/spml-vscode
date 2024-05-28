@@ -57,6 +57,7 @@ jobs:
           # Move the built binary where you want it
           mkdir "dist"
           mv "${BIN_OUTPUT}" "${BIN_RELEASE}"
+          chmod a+x "${BIN_RELEASE}"
  
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
