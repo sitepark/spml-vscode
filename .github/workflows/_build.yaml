@@ -34,10 +34,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: "${{ matrix.target }}"
-
-      - name: Setup Cache
-        uses: Swatinem/rust-cache@v2
-
+          
       - name: Build Binary
         run: cargo build --verbose --locked --release --target ${{ matrix.target }}
 
