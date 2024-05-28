@@ -35,7 +35,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: lspml-binary
-          path: resources/lspml_x86
+          pattern: lspml-*
+          merge-multiple: true
+          path: resources
 
       - name: Setup
         uses: ./.github/actions/setup
