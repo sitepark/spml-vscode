@@ -38,6 +38,10 @@ jobs:
           merge-multiple: true
           path: resources
 
+      - name: Make files executable
+        shell: bash
+        run: chmod a+x resources/lspml-*
+
       - name: Setup
         uses: ./.github/actions/setup
 
