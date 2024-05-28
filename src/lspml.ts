@@ -42,8 +42,7 @@ export function getLspmlPath(ctx: ExtensionContext): string {
 		"linux-x64": "lspml-linux-amd64",
 
 		"darwin-x64": "lspml-macos-amd64",
-		"darwin-arm": "lspml-macos-arm",
-		"darwin-arm64": "lspml-macos-arm",
+		"darwin-arm64": "lspml-macos-arm64",
 	};
 	const path = fileMapping[`${platform}-${arch}`];
 	if (path) {
