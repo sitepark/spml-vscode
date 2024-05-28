@@ -39,9 +39,9 @@ commit_preprocessors = [
 
 # Commit parsers to use for parsing commits
 commit_parsers = [
-    { message = "^feat*", group = "<!-- 0 -->:rocket: New features" },
-    { message = "^fix*", group = "<!-- 1 -->:bug: Bug fixes" },
-    { message = "^doc", group = "<!-- 2 -->:book: Documentation" },
+    { message = "^feat*", group = "<!-- 0 -->🚀 New features" },
+    { message = "^fix*", group = "<!-- 1 -->🐛 Bug fixes" },
+    { message = "^doc", group = "<!-- 2 -->📖 Documentation" },
 ]
 
 # Regex for matching git tags
