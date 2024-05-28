@@ -33,6 +33,9 @@ jobs:
       - run: |
           rustup toolchain install stable --profile minimal --no-self-update
           rustup target add ${{ matrix.target }}
+
+      - name: Setup Cache
+        uses: Swatinem/rust-cache@v2
           
       - name: Build Binary
         run: cargo build --verbose --locked --release --target ${{ matrix.target }}
