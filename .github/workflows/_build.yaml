@@ -13,12 +13,12 @@ jobs:
         with:
           repository: DrWursterich/lspml
 
-      - run: rustup toolchain install stable --profile minimal
+      - run: rustup toolchain install stable --profile minimal --no-self-update
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Compile LSPML
         run: cargo build --release
-
-      - uses: Swatinem/rust-cache@v2
 
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
