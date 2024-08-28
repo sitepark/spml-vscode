@@ -33,7 +33,7 @@
 			{
 				"id": "spml",
 				"aliases": ["Sitepark Markup Language", "spml", "SPML"],
-				"extensions": [".spml"],
+				"extensions": [".spml", ".spt"],
 				"icon": {
 					"light": "./resources/logo_light.png",
 					"dark": "./resources/logo_dark.png"
