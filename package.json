@@ -122,7 +122,7 @@
 		"install-extension": "code --install-extension spml-vscode.vsix --force",
 		"format": "biome format . --write",
 		"check": "biome check .",
-		"check:apply": "biome check . --apply-unsafe",
+		"check:apply": "biome check . --write --unsafe",
 		"pack:dev": "bun run compile && bun run package && bun run install-extension",
 		"tsc": "tsc",
 		"prepare": "lefthook install",
