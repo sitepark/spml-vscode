@@ -128,5 +128,6 @@
 		"prepare": "lefthook install",
 		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
 	},
-	"packageManager": "bun@1.1.8"
+	"packageManager": "bun@1.1.8",
+	"trustedDependencies": ["@biomejs/biome", "@vscode/vsce-sign"]
 }
