@@ -36,9 +36,9 @@ jobs:
 
       - name: Setup Cache
         uses: Swatinem/rust-cache@v2
-          
+
       - name: Build Binary
-        run: cargo build --verbose --locked --release --target ${{ matrix.target }}
+        run: cargo build --verbose --locked --release --target ${{ matrix.target }} --config lto=true --config strip=true
 
       - name: Release Binary
         shell: bash
@@ -47,10 +47,10 @@ jobs:
           if [[ "${{ matrix.runner }}" == "windows-latest" ]]; then
             BIN_SUFFIX=".exe"
           fi
-          
+
           # The built binary output location
           BIN_OUTPUT="target/${{ matrix.target }}/release/lspml${BIN_SUFFIX}"
- 
+
           # Define a better name for the final binary
           BIN_RELEASE="dist/lspml-${{ matrix.name }}${BIN_SUFFIX}"
 
@@ -58,7 +58,7 @@ jobs:
           mkdir "dist"
           mv "${BIN_OUTPUT}" "${BIN_RELEASE}"
           chmod a+x "${BIN_RELEASE}"
- 
+
       - name: Upload LSPML as artifact
         uses: actions/upload-artifact@v4
         with:
