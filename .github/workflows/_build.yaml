@@ -38,7 +38,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build Binary
-        run: cargo build --verbose --locked --release --target ${{ matrix.target }} --config lto=true --config strip=true
+        run: cargo build --workspace --verbose --locked --release --target ${{ matrix.target }} --config lto=true --config strip=true
 
       - name: Release Binary
         shell: bash
