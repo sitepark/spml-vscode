@@ -108,7 +108,7 @@
 		"@vscode/vsce": "^3.0.0",
 		"esbuild": "^0.25.0",
 		"git-cliff": "^2.2.2",
-		"lefthook": "^1.6.12"
+		"lefthook": "^2.0.0"
 	},
 	"repository": {
 		"type": "git",
