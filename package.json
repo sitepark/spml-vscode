@@ -106,7 +106,7 @@
 		"@types/node": "^22.5.5",
 		"@types/vscode": "^1.88.0",
 		"@vscode/vsce": "^3.0.0",
-		"esbuild": "^0.25.0",
+		"esbuild": "^0.27.0",
 		"git-cliff": "^2.2.2",
 		"lefthook": "^2.0.0"
 	},
