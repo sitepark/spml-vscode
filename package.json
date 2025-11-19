@@ -2,7 +2,11 @@
 	"name": "spml-vscode",
 	"description": "Language Support for SPML (Sitepark Markup Language)",
 	"version": "0.4.0",
-	"contributors": ["felix-becker", "rene-schleusner", "mario-schaeper"],
+	"contributors": [
+		"felix-becker",
+		"rene-schleusner",
+		"mario-schaeper"
+	],
 	"engines": {
 		"vscode": "^1.88.0"
 	},
@@ -16,12 +20,19 @@
 		"color": "#3c3c3b",
 		"theme": "dark"
 	},
-	"keywords": ["sitepark", "spml"],
+	"keywords": [
+		"sitepark",
+		"spml"
+	],
 	"license": "MIT",
-	"extensionDependencies": ["vscode.html-language-features"],
+	"extensionDependencies": [
+		"vscode.html-language-features"
+	],
 	"contributes": {
 		"html": {
-			"customData": ["./spml.html.customData.json"]
+			"customData": [
+				"./spml.html.customData.json"
+			]
 		},
 		"htmlLanguageParticipants": [
 			{
@@ -32,8 +43,15 @@
 		"languages": [
 			{
 				"id": "spml",
-				"aliases": ["Sitepark Markup Language", "spml", "SPML"],
-				"extensions": [".spml", ".spt"],
+				"aliases": [
+					"Sitepark Markup Language",
+					"spml",
+					"SPML"
+				],
+				"extensions": [
+					".spml",
+					".spt"
+				],
 				"icon": {
 					"light": "./resources/logo_light.png",
 					"dark": "./resources/logo_dark.png"
@@ -49,7 +67,12 @@
 					"description": "Log-Level von LSPML",
 					"type": "string",
 					"default": "INFO",
-					"enum": ["TRACE", "DEBUG", "INFO", "WARN"],
+					"enum": [
+						"TRACE",
+						"DEBUG",
+						"INFO",
+						"WARN"
+					],
 					"scope": "machine"
 				},
 				"spml.lsp.moduleMapping": {
@@ -102,13 +125,13 @@
 		]
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@types/node": "^22.5.5",
-		"@types/vscode": "^1.88.0",
-		"@vscode/vsce": "^3.0.0",
+		"@biomejs/biome": "2.3.6",
+		"@types/node": "^24.10.1",
+		"@types/vscode": "^1.106.1",
+		"@vscode/vsce": "^3.7.0",
 		"esbuild": "^0.27.0",
-		"git-cliff": "^2.2.2",
-		"lefthook": "^2.0.0"
+		"git-cliff": "^2.10.1",
+		"lefthook": "^2.0.4"
 	},
 	"repository": {
 		"type": "git",
@@ -129,5 +152,8 @@
 		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
 	},
 	"packageManager": "bun@1.1.8",
-	"trustedDependencies": ["@biomejs/biome", "@vscode/vsce-sign"]
+	"trustedDependencies": [
+		"@biomejs/biome",
+		"@vscode/vsce-sign"
+	]
 }

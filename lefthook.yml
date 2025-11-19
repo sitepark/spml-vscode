@@ -2,4 +2,5 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,jsx,tsx,json}"
-      run: bun biome check --apply {staged_files} && git add {staged_files}
+      run: bun biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      stage_fixed: true
