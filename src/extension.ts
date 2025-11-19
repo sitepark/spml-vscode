@@ -1,7 +1,6 @@
-import { type ExtensionContext, commands, window, workspace } from "vscode";
-import type { LanguageClient } from "vscode-languageclient/node";
-
 import * as fs from "node:fs";
+import { commands, type ExtensionContext, window, workspace } from "vscode";
+import type { LanguageClient } from "vscode-languageclient/node";
 import { createLogFileReader } from "./createLogFileReader";
 import { createLanguageClient, getLogFile } from "./lspml";
 
