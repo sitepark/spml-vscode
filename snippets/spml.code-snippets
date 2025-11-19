@@ -14,7 +14,7 @@
 	"spprinto": {
 		"prefix": ["spprinto"],
 		"body": ["<sp:print object=\"$1\" />"],
-		"description": "snipet for sp:print object"
+		"description": "snippet for sp:print object"
 	},
 	"spinclude": {
 		"prefix": ["spinclude"],
