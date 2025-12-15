@@ -62,7 +62,7 @@ jobs:
         run: bun vsce package --pre-release -o spml-vscode.vsix
 
       - name: Upload the artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: spml-vscode.vsix
           path: spml-vscode.vsix
