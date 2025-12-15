@@ -32,7 +32,7 @@ jobs:
           key: compiled-extension-${{ github.sha }}
 
       - name: Download compiled lsp from artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           pattern: lspml-*
           merge-multiple: true
