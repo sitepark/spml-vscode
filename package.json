@@ -1,7 +1,7 @@
 {
 	"name": "spml-vscode",
 	"description": "Language Support for SPML (Sitepark Markup Language)",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"contributors": [
 		"felix-becker",
 		"rene-schleusner",
