@@ -14,7 +14,7 @@
 	"icon": "./resources/logo_dark.png",
 	"main": "./dist/extension.js",
 	"dependencies": {
-		"vscode-languageclient": "^9.0.0"
+		"vscode-languageclient": "^9.0.1"
 	},
 	"galleryBanner": {
 		"color": "#3c3c3b",
@@ -126,12 +126,12 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.7",
-		"@types/node": "^24.10.1",
-		"@types/vscode": "^1.106.1",
-		"@vscode/vsce": "^3.7.0",
-		"esbuild": "^0.27.0",
-		"git-cliff": "^2.10.1",
-		"lefthook": "^2.0.4"
+		"@types/node": "^24.12.0",
+		"@types/vscode": "^1.110.0",
+		"@vscode/vsce": "^3.7.1",
+		"esbuild": "^0.27.4",
+		"git-cliff": "^2.12.0",
+		"lefthook": "^2.1.4"
 	},
 	"repository": {
 		"type": "git",
