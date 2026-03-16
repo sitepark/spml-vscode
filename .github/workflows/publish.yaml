@@ -24,8 +24,8 @@ jobs:
       # input is true, package a nightly build
       nightly: ${{ github.event.inputs.nightly == 'true' }}
 
-  publish-vs-marketplace:
-    name: Publish to Visual Studio Marketplace
+  publish-extensions:
+    name: Publish to Extension Registries
     if: github.ref == 'refs/heads/main'
     needs: [package]
     runs-on: ubuntu-latest
@@ -46,6 +46,11 @@ jobs:
         run: bun vsce publish --packagePath spml-vscode.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish extension to Open VSX Registry
+        run: bunx ovsx publish spml-vscode.vsix -p $OVSX_PAT
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
   publish-github-release:
     name: Publish to GitHub Releases
