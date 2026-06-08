@@ -14,7 +14,7 @@
 	"icon": "./resources/logo_dark.png",
 	"main": "./dist/extension.js",
 	"dependencies": {
-		"vscode-languageclient": "^9.0.1"
+		"vscode-languageclient": "^10.0.0"
 	},
 	"galleryBanner": {
 		"color": "#3c3c3b",
