@@ -131,7 +131,8 @@
 		"@vscode/vsce": "^3.9.2",
 		"esbuild": "^0.28.2",
 		"git-cliff": "^2.13.1",
-		"lefthook": "^2.1.10"
+		"lefthook": "^2.1.10",
+		"typescript": "^5.9.3"
 	},
 	"repository": {
 		"type": "git",

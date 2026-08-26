@@ -1,11 +1,10 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "node16",
 		"target": "es2019",
 		"lib": ["ES2019"],
-		"outDir": "out",
 		"rootDir": "src",
-		"sourceMap": true,
+		"noEmit": true,
 		"strict": true,
 		"skipLibCheck": true
 	},
