@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.\n
 
 body = """
 {%- macro remote_url() -%}
-  https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+  https://github.com/sitepark/spml-vscode
 {%- endmacro -%}
 
 {% macro print_commit(commit) -%}
@@ -73,6 +73,7 @@ commit_parsers = [
     { message = "^test", group = "<!-- 6 -->🧪 Testing" },
     { message = "^chore\\(release\\): prepare for", skip = true },
     { message = "^chore\\(deps.*\\)", skip = true },
+    { message = "^build\\(deps.*\\)", skip = true },
     { message = "^chore\\(pr\\)", skip = true },
     { message = "^chore\\(pull\\)", skip = true },
     { message = "^chore|^ci|^build", group = "<!-- 7 -->⚙️ Miscellaneous Tasks" },

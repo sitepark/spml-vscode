@@ -29,7 +29,7 @@
 			"%><%@ taglib tagdir=\"/WEB-INF/tags/spt\" prefix=\"spt\"",
 			"%>$1"
 		],
-		"description": "snippet for sp:include"
+		"description": "snippet for the page and taglib header"
 	},
 	"spifelse": {
 		"prefix": ["spifelse"],

@@ -1,3 +1,24 @@
-node_modules
-src
+# Sources and build tooling - the extension ships as a single bundled
+# dist/extension.js, so nothing under src/ or node_modules/ is needed.
+src/**
+node_modules/**
+scripts/**
 .npm
+
+# Repository tooling
+.github/**
+.vscode/**
+.gitignore
+.vscodeignore
+biome.json
+bun.lockb
+cliff.toml
+lefthook.yml
+tsconfig.json
+
+# Documentation assets are served from the repository, not from the package
+# (vsce rewrites relative links in README.md to absolute repository URLs).
+docs/**
+
+# Build leftovers
+**/*.map

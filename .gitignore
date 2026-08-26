@@ -1,4 +1,4 @@
 /node_modules
 /dist
-resources/lspml_x86
+resources/lspml-*
 spml-vscode.vsix
