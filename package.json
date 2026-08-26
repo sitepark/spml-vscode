@@ -126,6 +126,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.10",
+		"@types/bun": "^1.4.0",
 		"@types/node": "^26.3.0",
 		"@types/vscode": "^1.134.0",
 		"@vscode/vsce": "^3.9.2",
@@ -149,6 +150,7 @@
 		"check:apply": "biome check . --write --unsafe",
 		"pack:dev": "bun run compile && bun run package && bun run install-extension",
 		"tsc": "tsc",
+		"test": "bun test",
 		"prepare": "lefthook install",
 		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
 	},
