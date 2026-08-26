@@ -11,7 +11,7 @@ scripts/**
 .gitignore
 .vscodeignore
 biome.json
-bun.lockb
+bun.lock
 cliff.toml
 lefthook.yml
 tsconfig.json
