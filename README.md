@@ -55,7 +55,11 @@
 
 ## Getting Started
 1. Install the extension
-2. Change File association for `*.spml` files to spml
+2. Open a `*.spml` or `*.spt` file - both are associated with the SPML
+   language automatically
+
+If another extension has claimed the file type, set the association
+explicitly with *Change Language Mode* (`Ctrl+K M`) and pick `SPML`.
 
 ## Configuration
 For the path completion of the `uri` attribute of `sp:include`, a mapping from module ID to file system path must be defined in the settings.

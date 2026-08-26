@@ -17,6 +17,9 @@ on:
         value: ${{ jobs.package.outputs.nightly }}
         description: 'Whether the packaged extension is a nightly build'
 
+permissions:
+  contents: read
+
 jobs:
   package:
     name: Package
@@ -25,11 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Restore compiled extension from cache
-        uses: actions/cache/restore@v6
+      - name: Download compiled extension from artifacts
+        uses: actions/download-artifact@v8
         with:
-          path: dist/
-          key: compiled-extension-${{ github.sha }}
+          name: extension-dist
+          path: dist
 
       - name: Download compiled lsp from artifacts
         uses: actions/download-artifact@v8
@@ -46,7 +49,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Patch package.json version
-        if: ${{ github.event.inputs.nightly == 'true' }}
+        if: ${{ inputs.nightly }}
         run: bun scripts/patch-package-version.ts
 
       - name: Read version from package.json
@@ -54,12 +57,12 @@ jobs:
         run: echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
 
       - name: Package stable extension
-        if: ${{ github.event.inputs.nightly != 'true' }}
-        run: bun vsce package -o spml-vscode.vsix
+        if: ${{ !inputs.nightly }}
+        run: bun vsce package --no-dependencies -o spml-vscode.vsix
 
       - name: Package pre-release extension
-        if: ${{ github.event.inputs.nightly == 'true' }}
-        run: bun vsce package --pre-release -o spml-vscode.vsix
+        if: ${{ inputs.nightly }}
+        run: bun vsce package --no-dependencies --pre-release -o spml-vscode.vsix
 
       - name: Upload the artifact
         uses: actions/upload-artifact@v7
@@ -69,4 +72,4 @@ jobs:
 
     outputs:
       version: ${{ steps.version.outputs.version }}
-      nightly: ${{ github.event.inputs.nightly == 'true' }}
+      nightly: ${{ inputs.nightly }}

@@ -141,7 +141,7 @@
 	"scripts": {
 		"compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
 		"watch": "bun run compile --sourcemap --watch",
-		"package": "vsce package --skip-license -o spml-vscode.vsix",
+		"package": "vsce package --no-dependencies --skip-license -o spml-vscode.vsix",
 		"build": "bun run compile --minify && bun run package",
 		"install-extension": "code --install-extension spml-vscode.vsix --force",
 		"format": "biome format . --write",

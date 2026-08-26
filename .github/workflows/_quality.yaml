@@ -4,6 +4,9 @@ name: _Quality
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   code-quality:
     name: Code Quality

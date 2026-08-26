@@ -9,6 +9,9 @@ on:
         required: false
         description: 'Publish a nightly build'
 
+permissions:
+  contents: read
+
 jobs:
 
   build:
@@ -20,9 +23,7 @@ jobs:
     needs: [build]
     uses: ./.github/workflows/_package.yaml
     with:
-      # If the workflow was triggered by a schedule event, or the nightly
-      # input is true, package a nightly build
-      nightly: ${{ github.event.inputs.nightly == 'true' }}
+      nightly: ${{ inputs.nightly }}
 
   publish-extensions:
     name: Publish to Extension Registries
@@ -54,7 +55,7 @@ jobs:
 
   publish-github-release:
     name: Publish to GitHub Releases
-    if: github.ref == 'refs/heads/main' && github.event.inputs.nightly == 'false'
+    if: github.ref == 'refs/heads/main' && !inputs.nightly
     needs: [package]
     runs-on: ubuntu-latest
     permissions:

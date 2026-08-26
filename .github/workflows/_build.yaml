@@ -4,6 +4,9 @@ name: _Build
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   build-lsp:
     name: Build LSPML
@@ -76,10 +79,10 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build
-        run: bun run compile
+        run: bun run compile --minify
 
-      - name: Cache compiled extension
-        uses: actions/cache@v6
+      - name: Upload compiled extension as artifact
+        uses: actions/upload-artifact@v7
         with:
+          name: extension-dist
           path: dist/
-          key: compiled-extension-${{ github.sha }}
