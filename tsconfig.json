@@ -3,11 +3,10 @@
 		"module": "preserve",
 		"target": "es2019",
 		"lib": ["ES2019"],
-		"rootDir": "src",
 		"noEmit": true,
 		"strict": true,
 		"skipLibCheck": true
 	},
-	"include": ["src"],
+	"include": ["src", "scripts"],
 	"exclude": ["node_modules"]
 }

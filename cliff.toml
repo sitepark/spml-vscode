@@ -71,7 +71,7 @@ commit_parsers = [
     { message = "^perf", group = "<!-- 4 -->⚡ Performance" },
     { message = "^style", group = "<!-- 5 -->🎨 Styling" },
     { message = "^test", group = "<!-- 6 -->🧪 Testing" },
-    { message = "^chore\\(release\\): prepare for", skip = true },
+    { message = "^chore\\(release\\)", skip = true },
     { message = "^chore\\(deps.*\\)", skip = true },
     { message = "^build\\(deps.*\\)", skip = true },
     { message = "^chore\\(pr\\)", skip = true },
