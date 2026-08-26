@@ -4,9 +4,9 @@ runs:
   using: composite
   steps:
     - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
-      with:
-        bun-version: 1.1.8
+      # No bun-version: setup-bun reads it from `packageManager` in
+      # package.json, so the version stays pinned in exactly one place.
+      uses: oven-sh/setup-bun@v2
     - name: Install dependencies
       shell: bash
       run: bun install
