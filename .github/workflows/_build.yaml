@@ -8,8 +8,39 @@ permissions:
   contents: read
 
 jobs:
+  resolve-lspml:
+    name: Resolve LSPML Revision
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.resolve.outputs.sha }}
+      config: ${{ steps.config.outputs.hash }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Hashed here rather than in the build job, which caches before it
+      # checks anything out and would find no file to hash.
+      - name: Hash the build configuration
+        id: config
+        run: echo "hash=${{ hashFiles('.github/workflows/_build.yaml') }}" >> "$GITHUB_OUTPUT"
+
+      # Resolved once for the whole run, so that all four targets build the
+      # same commit even if lspml is pushed to while this workflow runs, and
+      # so that the binary cache can be keyed on it.
+      - name: Resolve lspml revision
+        id: resolve
+        run: |
+          sha="$(git ls-remote https://github.com/DrWursterich/lspml HEAD | cut -f1)"
+          if [ -z "${sha}" ]; then
+            echo "Could not resolve the lspml revision" >&2
+            exit 1
+          fi
+          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
+          echo "Building lspml at [\`${sha}\`](https://github.com/DrWursterich/lspml/commit/${sha})" >> "$GITHUB_STEP_SUMMARY"
+
   build-lsp:
     name: Build LSPML
+    needs: [resolve-lspml]
     # Set the job to run on the platform specified by the matrix below
     runs-on: ${{ matrix.runner }}
     # Define the build matrix for cross-compilation
@@ -29,21 +60,40 @@ jobs:
             runner: macos-latest
             target: aarch64-apple-darwin
     steps:
+      # The binary only depends on the lspml revision and on how this workflow
+      # builds it, so on a hit none of the steps below have to run at all.
+      - name: Restore LSPML binary
+        id: binary
+        uses: actions/cache@v6
+        with:
+          path: dist
+          key: lspml-bin-${{ matrix.name }}-${{ needs.resolve-lspml.outputs.sha }}-${{ needs.resolve-lspml.outputs.config }}
+
       - uses: actions/checkout@v7
+        if: steps.binary.outputs.cache-hit != 'true'
         with:
           repository: DrWursterich/lspml
+          ref: ${{ needs.resolve-lspml.outputs.sha }}
 
-      - run: |
+      - if: steps.binary.outputs.cache-hit != 'true'
+        run: |
           rustup toolchain install stable --profile minimal --no-self-update
           rustup target add ${{ matrix.target }}
 
       - name: Setup Cache
+        if: steps.binary.outputs.cache-hit != 'true'
         uses: Swatinem/rust-cache@v2
+        with:
+          # Both macos jobs run on the same runner architecture but build
+          # different targets, and would otherwise share one cache entry.
+          key: ${{ matrix.target }}
 
       - name: Build Binary
+        if: steps.binary.outputs.cache-hit != 'true'
         run: cargo build --workspace --verbose --locked --release --target ${{ matrix.target }} --config lto=true --config strip=true
 
       - name: Release Binary
+        if: steps.binary.outputs.cache-hit != 'true'
         shell: bash
         run: |
           BIN_SUFFIX=""
