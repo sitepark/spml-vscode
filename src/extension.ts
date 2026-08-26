@@ -1,8 +1,9 @@
 import * as fs from "node:fs";
 import { commands, type ExtensionContext, window, workspace } from "vscode";
 import type { LanguageClient } from "vscode-languageclient/node";
+import { createLanguageClient } from "./createLanguageClient";
 import { createLogFileReader } from "./createLogFileReader";
-import { createLanguageClient, prepareLogFile } from "./lspml";
+import { prepareLogFile } from "./lspml";
 
 let client: LanguageClient | undefined;
 

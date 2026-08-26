@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "node16",
+		"module": "preserve",
 		"target": "es2019",
 		"lib": ["ES2019"],
 		"rootDir": "src",

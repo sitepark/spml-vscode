@@ -2,9 +2,19 @@ import * as fs from "node:fs";
 import type { LogOutputChannel } from "vscode";
 import type { LogLine } from "./lspml";
 
+export interface LogFileReaderOptions {
+	/**
+	 * Interval in ms at which the log file is polled for changes. Defaults to
+	 * the interval `fs.watchFile` itself uses, so log lines can take that long
+	 * to reach the output channel.
+	 */
+	pollInterval?: number;
+}
+
 export function createLogFileReader(
 	logFilePath: string,
 	outputChannel: LogOutputChannel,
+	{ pollInterval = 5007 }: LogFileReaderOptions = {},
 ) {
 	let lastReadPosition = 0;
 	// Bytes of a trailing line that was not terminated yet, because the server
@@ -88,7 +98,7 @@ export function createLogFileReader(
 
 	displayNewLogFileContent();
 	// Watch for changes in the log file
-	fs.watchFile(logFilePath, (curr, prev) => {
+	fs.watchFile(logFilePath, { interval: pollInterval }, (curr, prev) => {
 		// Check if the modification time changed
 		if (curr.mtime.getTime() !== prev.mtime.getTime()) {
 			displayNewLogFileContent(); // If changed, update the output channel

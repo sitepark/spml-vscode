@@ -1,11 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { type ExtensionContext, workspace } from "vscode";
-import {
-	LanguageClient,
-	type LanguageClientOptions,
-	type ServerOptions,
-} from "vscode-languageclient/node";
 import { getLogDir, getStorageDir } from "./util/storage";
 
 export type LspmlLogLevel = "TRACE" | "DEBUG" | "INFO" | "WARN";
@@ -59,12 +54,14 @@ export function getLspmlPath(ctx: ExtensionContext): string {
 }
 
 export function convertArgsToArray(args: LspmlArgs): string[] {
-	return Object.entries(args).flatMap(([key, value]) => {
-		return [`--${key}`, value];
-	});
+	return Object.entries(args).flatMap(([key, value]) =>
+		// Every field is optional, and passing `--log-level undefined` on to the
+		// server would be worse than not passing the flag at all.
+		value === undefined ? [] : [`--${key}`, value],
+	);
 }
 
-async function getLspmlArgs(
+export async function getLspmlArgs(
 	ctx: ExtensionContext,
 	logFile: string,
 ): Promise<LspmlArgs> {
@@ -120,38 +117,4 @@ async function getModuleMapping(ctx: ExtensionContext) {
 		});
 	}
 	return moduleFile;
-}
-
-export async function createLanguageClient(
-	ctx: ExtensionContext,
-	logFile: string,
-): Promise<LanguageClient> {
-	const args = await getLspmlArgs(ctx, logFile);
-	const lspmlPath = getLspmlPath(ctx);
-	const serverOptions: ServerOptions = {
-		run: {
-			command: lspmlPath,
-			args: convertArgsToArray(args),
-		},
-		debug: {
-			command: lspmlPath,
-			args: convertArgsToArray(args),
-		},
-	};
-
-	const clientOptions: LanguageClientOptions = {
-		documentSelector: [{ scheme: "file", language: "spml" }],
-		progressOnInitialization: true,
-		markdown: {
-			isTrusted: true,
-			supportHtml: true,
-		},
-	};
-
-	return new LanguageClient(
-		"lspml",
-		"SPML Language Server",
-		serverOptions,
-		clientOptions,
-	);
 }
