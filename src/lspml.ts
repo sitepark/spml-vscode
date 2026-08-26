@@ -9,6 +9,13 @@ import {
 import { getLogDir, getStorageDir } from "./util/storage";
 
 export type LspmlLogLevel = "TRACE" | "DEBUG" | "INFO" | "WARN";
+/**
+ * Levels that can show up in the log file.
+ *
+ * lspml only lets us *select* the levels above, but it still emits `ERROR`
+ * lines regardless of the configured level.
+ */
+export type LogLineLevel = LspmlLogLevel | "ERROR";
 export type LspmlArgs = {
 	"log-level"?: LspmlLogLevel;
 	"log-file"?: string;
@@ -22,7 +29,7 @@ export interface ModuleMappingFile {
 }
 
 export interface LogLine {
-	level: LspmlLogLevel;
+	level: LogLineLevel;
 	message: string;
 	target: string;
 	timestamp: number;
@@ -57,13 +64,16 @@ export function convertArgsToArray(args: LspmlArgs): string[] {
 	});
 }
 
-async function getLspmlArgs(ctx: ExtensionContext): Promise<LspmlArgs> {
+async function getLspmlArgs(
+	ctx: ExtensionContext,
+	logFile: string,
+): Promise<LspmlArgs> {
 	const configuration = workspace.getConfiguration();
 	const args: LspmlArgs = {
 		"log-level":
 			configuration.get<LspmlLogLevel>("spml.lsp.loglevel") ?? "INFO",
+		"log-file": logFile,
 	};
-	args["log-file"] = await getLogFile(ctx);
 
 	const moduleFile = await getModuleMapping(ctx);
 	if (moduleFile) {
@@ -72,10 +82,23 @@ async function getLspmlArgs(ctx: ExtensionContext): Promise<LspmlArgs> {
 	return args;
 }
 
-export async function getLogFile(ctx: ExtensionContext) {
+async function getLogFile(ctx: ExtensionContext): Promise<string> {
 	const logDir = await getLogDir(ctx);
-	const logFile = path.join(logDir, "lspml.log");
-	fs.existsSync(logFile) && fs.unlinkSync(logFile);
+	return path.join(logDir, "lspml.log");
+}
+
+/**
+ * Removes the log file left behind by a previous run and returns its path.
+ *
+ * This has to happen exactly once per activation and *before* the server is
+ * started: deleting the file afterwards detaches the running server from the
+ * file the log reader watches, so no log line would ever show up again.
+ */
+export async function prepareLogFile(ctx: ExtensionContext): Promise<string> {
+	const logFile = await getLogFile(ctx);
+	if (fs.existsSync(logFile)) {
+		fs.unlinkSync(logFile);
+	}
 	return logFile;
 }
 
@@ -101,8 +124,9 @@ async function getModuleMapping(ctx: ExtensionContext) {
 
 export async function createLanguageClient(
 	ctx: ExtensionContext,
+	logFile: string,
 ): Promise<LanguageClient> {
-	const args = await getLspmlArgs(ctx);
+	const args = await getLspmlArgs(ctx, logFile);
 	const lspmlPath = getLspmlPath(ctx);
 	const serverOptions: ServerOptions = {
 		run: {
