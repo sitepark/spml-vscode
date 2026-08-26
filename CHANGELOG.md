@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.1](https://github.com/sitepark/spml-vscode/compare/v0.8.0..v0.8.1) - 2026-08-26
+
+### 🚀 New features
+
+- *(ci)* Bump the version when publishing and fix the release notes - ([cbcaff6](https://github.com/sitepark/spml-vscode/commit/cbcaff6f63483762ec8f9754c7f0eeee8dea605c))
+
 ## [0.8.0](https://github.com/sitepark/spml-vscode/compare/v0.7.0..v0.8.0) - 2026-08-26
 
 ### 🐛 Bug fixes
