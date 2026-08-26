@@ -2,13 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.8.0](https://github.com/sitepark/spml-vscode/compare/v0.7.0..v0.8.0) - 2026-08-26
 
 ### 🐛 Bug fixes
 
 - *(deps)* Update dependencies - ([cb4af17](https://github.com/sitepark/spml-vscode/commit/cb4af17a151d63ff083e35870b991c306c320e63))
 - *(lsp)* Repair log file lifecycle, restart sequencing and nightly versioning - ([e84fac8](https://github.com/sitepark/spml-vscode/commit/e84fac8278b84c085acca132b00ad5d34732b4f1))
 - Adjust vscode engine to match used types - ([b17ef30](https://github.com/sitepark/spml-vscode/commit/b17ef30f4db5aec1c5d7c111cffe910e00a9ccfa))
+
+### 🧪 Testing
+
+- Cover the log reader, argument handling and storage paths - ([84ae985](https://github.com/sitepark/spml-vscode/commit/84ae985eaea109303a56b318d39bba70901b6774))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(build)* Cache the lspml binary per revision - ([9e4133c](https://github.com/sitepark/spml-vscode/commit/9e4133c2b07d05683fcea390c40339bf3663da95))
+- *(ci)* Fix nightly input, artifact handoff and package contents - ([78caf24](https://github.com/sitepark/spml-vscode/commit/78caf2495ad6c98818d06da0f860d0c2c491fd35))
 
 ## [0.7.0](https://github.com/sitepark/spml-vscode/compare/v0.6.0..v0.7.0) - 2026-03-16
 
@@ -35,47 +44,25 @@ All notable changes to this project will be documented in this file.
 
 - Sort imports according to biome - ([afe5d7f](https://github.com/sitepark/spml-vscode/commit/afe5d7f625fe5800b4247d7ee140b7d86df940f6))
 
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* Bump version - ([a2e65c8](https://github.com/sitepark/spml-vscode/commit/a2e65c8671020bd9654d3da0a440446ec4fbd012))
-
 ## [0.4.0](https://github.com/sitepark/spml-vscode/compare/v0.3.0..v0.4.0) - 2025-05-30
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Bump version to 0.4.0 - ([7038267](https://github.com/sitepark/spml-vscode/commit/703826781430a06dbb823c4188b75c540c152ea5))
 - Add workspace flag to cargo - ([a168af4](https://github.com/sitepark/spml-vscode/commit/a168af44da77b8d2efb49a852ec8ba00e8d7667d))
 
 ## [0.3.0](https://github.com/sitepark/spml-vscode/compare/v0.2.2..v0.3.0) - 2025-03-21
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Bump version to next minor - ([565c123](https://github.com/sitepark/spml-vscode/commit/565c123c3c4f85344045cd42e107cd446be25b36))
 - Enable dependabot option "enable-beta-ecosystems" for better bun support - ([8b293bf](https://github.com/sitepark/spml-vscode/commit/8b293bf6d0f404fff16bf4226e145951c7aa3b4d))
 - Don't use deprecated biome cli arguments - ([c0280ee](https://github.com/sitepark/spml-vscode/commit/c0280eec8d9181cbb560e2e3f8e28e9fb0b449e3))
 - Build with lto=true and strip=true - ([e6ff675](https://github.com/sitepark/spml-vscode/commit/e6ff6751d16fd78852058f705cbb9890d003fd6d))
-
-## [0.2.2](https://github.com/sitepark/spml-vscode/compare/v0.2.1..v0.2.2) - 2024-10-07
-
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* Bump version - ([c1ec2cc](https://github.com/sitepark/spml-vscode/commit/c1ec2cc19f78f0467b38299176adab1fbaa77272))
 
 ## [0.2.1](https://github.com/sitepark/spml-vscode/compare/v0.2.0..v0.2.1) - 2024-08-28
 
 ### 🚀 New features
 
 - Register spt file extension with spml language - ([4d5add8](https://github.com/sitepark/spml-vscode/commit/4d5add8180d884a2224641c5c9add7cd2d262b8a))
-
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* Bump version - ([9e2990a](https://github.com/sitepark/spml-vscode/commit/9e2990aa4ebad08c9f2842ac12b77a1d88e06d15))
-
-## [0.2.0](https://github.com/sitepark/spml-vscode/compare/v0.1.0..v0.2.0) - 2024-08-13
-
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* Bump version to 0.2.0 - ([35cb842](https://github.com/sitepark/spml-vscode/commit/35cb8428eed572d3cebf33307e3a456a50d2b2b9))
 
 ## [0.1.0](https://github.com/sitepark/spml-vscode/compare/v0.0.3..v0.1.0) - 2024-05-28
 
@@ -89,7 +76,6 @@ All notable changes to this project will be documented in this file.
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Bump version - ([f21aed6](https://github.com/sitepark/spml-vscode/commit/f21aed64f5f87b0f2bc6030c22165c8d903582cc))
 - Setup matrix build for different os's - ([ae44487](https://github.com/sitepark/spml-vscode/commit/ae444872b241ce957ee245136049206aa03f235b))
 - Try disabling cache for matrix builds - ([fcb1102](https://github.com/sitepark/spml-vscode/commit/fcb1102c98e4ad11c97b9ca20d82d8006ae94b14))
 - Install rust the old fashioned way - ([718357a](https://github.com/sitepark/spml-vscode/commit/718357aaebcabf7ae95e80f9d03ff7b8b3ca0dde))
@@ -106,7 +92,6 @@ All notable changes to this project will be documented in this file.
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Bump version - ([e53a969](https://github.com/sitepark/spml-vscode/commit/e53a9692e2608a1e2bf536863d47ec3827cff6c8))
 - Revert markdown syntax back to default - ([7d6772a](https://github.com/sitepark/spml-vscode/commit/7d6772a205893484dd374282d7a1ce9944d219f4))
 - Use emojis in Changelog - ([832e4a1](https://github.com/sitepark/spml-vscode/commit/832e4a1b88d7a0bc16ccdb76b56a04ca18676e24))
 - Update changelog template - ([43e02a6](https://github.com/sitepark/spml-vscode/commit/43e02a63ee60567913bdb255714d19261795b72a))

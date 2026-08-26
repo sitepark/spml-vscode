@@ -8,22 +8,83 @@ on:
         default: true
         required: false
         description: 'Publish a nightly build'
+      bump:
+        type: choice
+        default: minor
+        required: false
+        description: 'Which part of the version to raise. Ignored for nightly builds.'
+        options:
+          - major
+          - minor
+          - patch
 
 permissions:
   contents: read
 
 jobs:
 
+  release-commit:
+    name: Bump Version
+    # Nightly builds get a date based version that is never committed, so only
+    # stable releases raise the version in the repository.
+    if: ${{ !inputs.nightly && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.bump.outputs.version }}
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # The changelog is rendered from the whole history.
+          fetch-depth: 0
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Raise the version
+        id: bump
+        run: |
+          bun scripts/patch-package-version.ts "${{ inputs.bump }}"
+          version="$(jq -r '.version' package.json)"
+          if git rev-parse -q --verify "refs/tags/v${version}" >/dev/null; then
+            echo "Tag v${version} already exists" >&2
+            exit 1
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Update the changelog
+        run: bun git-cliff --config cliff.toml --tag "v${{ steps.bump.outputs.version }}" -o CHANGELOG.md
+
+      - name: Commit the release
+        id: commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package.json CHANGELOG.md
+          git commit -m 'chore(release): bump version to ${{ steps.bump.outputs.version }}'
+          git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "Released [\`v${{ steps.bump.outputs.version }}\`](https://github.com/sitepark/spml-vscode/commit/$(git rev-parse HEAD))" >> "$GITHUB_STEP_SUMMARY"
+
   build:
     name: Build
+    needs: [release-commit]
+    # release-commit is skipped for nightly builds, which must not skip this.
+    if: ${{ !cancelled() && needs.release-commit.result != 'failure' }}
     uses: ./.github/workflows/_build.yaml
 
   package:
     name: Package
-    needs: [build]
+    needs: [release-commit, build]
+    if: ${{ !cancelled() && needs.build.result == 'success' && needs.release-commit.result != 'failure' }}
     uses: ./.github/workflows/_package.yaml
     with:
       nightly: ${{ inputs.nightly }}
+      # Empty for nightly builds, where the triggering ref is packaged.
+      ref: ${{ needs.release-commit.outputs.sha }}
 
   publish-extensions:
     name: Publish to Extension Registries
@@ -56,7 +117,7 @@ jobs:
   publish-github-release:
     name: Publish to GitHub Releases
     if: github.ref == 'refs/heads/main' && !inputs.nightly
-    needs: [package]
+    needs: [release-commit, package]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -65,6 +126,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ needs.release-commit.outputs.sha }}
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -75,21 +137,21 @@ jobs:
           name: spml-vscode.vsix
 
       - name: Generate release notes
-        id: release-notes
-        uses: orhun/git-cliff-action@v4
-        with:
-          config: cliff.toml
-          args: -vv --latest --strip header
-        env:
-          OUTPUT: CHANGES.md
-
-      - name: Strip tag from release notes
-        run: tail -n +3 < CHANGES.md > RELEASE_NOTES.md
+        run: |
+          # The tag is created by the release step below, so it does not exist
+          # yet: `--latest` would render the *previous* release. `--unreleased`
+          # with `--tag` renders the commits that are being released.
+          bun git-cliff --config cliff.toml --unreleased \
+            --tag 'v${{ needs.package.outputs.version }}' --strip all -o CHANGES.md
+          # Drop the version heading, the release itself already carries it.
+          sed '/^## \[/d' CHANGES.md | sed '/./,$!d' > RELEASE_NOTES.md
+          cat RELEASE_NOTES.md
 
       - name: Publish extension to GitHub Releases
         uses: softprops/action-gh-release@v3
         with:
-          name: "${{ format('v{0}', needs.package.outputs.version) }}"
+          name: ${{ format('v{0}', needs.package.outputs.version) }}
           body_path: RELEASE_NOTES.md
           files: spml-vscode.vsix
           tag_name: ${{ format('v{0}', needs.package.outputs.version) }}
+          target_commitish: ${{ needs.release-commit.outputs.sha }}

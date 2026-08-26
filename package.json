@@ -152,7 +152,7 @@
 		"tsc": "tsc",
 		"test": "bun test",
 		"prepare": "lefthook install",
-		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md"
+		"changelog": "git-cliff --unreleased"
 	},
 	"packageManager": "bun@1.4.0",
 	"trustedDependencies": [

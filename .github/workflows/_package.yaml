@@ -9,6 +9,11 @@ on:
         default: false
         required: false
         description: 'Publish a nightly build'
+      ref:
+        type: string
+        default: ''
+        required: false
+        description: 'Commit to package. Defaults to the triggering ref.'
     outputs:
       version:
         value: ${{ jobs.package.outputs.version }}
@@ -27,6 +32,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Download compiled extension from artifacts
         uses: actions/download-artifact@v8
