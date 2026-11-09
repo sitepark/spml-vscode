@@ -10,6 +10,7 @@ scripts/**
 .vscode/**
 .gitignore
 .vscodeignore
+CLAUDE.md
 biome.json
 bun.lock
 cliff.toml
