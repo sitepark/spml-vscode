@@ -52,6 +52,11 @@
     - split `<sp:if>` `condition` into `name` and `eq`/`gt`/`isNull`/...
     - join `<sp:if>` `name` and `eq`/`gt`/`isNull`/... into `condition`
 
+**HTML support:** the HTML in your templates is edited like in an `.html`
+file, including HTML nested inside `<sp:if>`, `<sp:loop>` etc. VS Code's
+built-in HTML support provides syntax highlighting, completion, hover,
+auto-closing tags and auto-quotes.
+
 
 ## Getting Started
 1. Install the extension
