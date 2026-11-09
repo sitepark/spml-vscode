@@ -90,7 +90,7 @@ jobs:
 
       - name: Build Binary
         if: steps.binary.outputs.cache-hit != 'true'
-        run: cargo build --workspace --verbose --locked --release --target ${{ matrix.target }} --config lto=true --config strip=true
+        run: cargo build --workspace --verbose --locked --release --target ${{ matrix.target }}
 
       - name: Release Binary
         if: steps.binary.outputs.cache-hit != 'true'
