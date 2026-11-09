@@ -35,9 +35,11 @@ editing HTML, plus everything lspml knows about SPML.
   has no content in real templates (or only a handful of exceptions), or when
   lspml defines it with `TagChildren::None` (`crates/lspml-grammar`) and real
   templates agree. Real templates win over lspml: `spt:ilink` and
-  `spt:personalization` have content in practice. Tags with regular content
-  (`sp:set`, `sp:map`, `sp:argument`, `sp:include`) stay non-void. The file
-  lists every lspml tag plus taglib tags lspml doesn't know yet.
+  `spt:personalization` have content in practice. `sp:set`, `sp:map` and
+  `sp:textarea` are void by choice, although templates write them with content
+  too. `sp:argument`, `sp:include`, `sp:select` and `sp:option` stay
+  non-void. The file lists every lspml tag plus taglib tags lspml doesn't know
+  yet.
 - **Content keeps full HTML support, however deeply it's nested in SPML.** HTML
   inside `<sp:if>`, `<sp:loop>` etc. is edited exactly like in an `.html` file.
 - **Editing mechanics apply to all tags.** Auto-closing, auto-quotes and linked
